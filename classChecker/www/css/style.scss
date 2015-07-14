@@ -1,0 +1,40 @@
+.editable-image {
+	height:200px;
+	text-align:center;
+}
+
+.pane{
+	background-color: #d19cff;
+}
+
+.nav-bar-block ion-header-bar{
+	background-color: rgb(255, 137, 0);
+	color: #ffffff;
+}
+
+ion-nav-view ion-view ion-content{
+	background-color: rgb(255, 200, 137);
+}
+
+.tabs-bottom .tab-nav{
+	background-color: rgb(255, 137, 0);
+	color: #ffffff;
+}
+
+.classSearchImage{
+	width: 100%;
+	border-radius: 20px;
+	padding: 5%;
+}
+
+.settingsCheckbox{
+	background-color: rgb(245, 154, 50);
+	border: transparent;
+	color: #ffffff;
+	border-radius: 15px;
+	border: 2px solid rgb(255, 236, 214);
+	margin-bottom: 7px;
+	.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before{
+		border-color: rgb(255, 236, 214);
+	}
+}
