@@ -56,10 +56,10 @@ ion-nav-view ion-view ion-content{
 }
 
 .classSearchImage{
-	width: 100%;
+	width: 90%;
 	border-radius: 20px;
-	padding: 5%;
-	border-color: transparent !important;
+	margin: 5%;
+	border: 5px solid rgb(255, 165, 62) !important;
 }
 
 .settingsCheckbox{
@@ -88,34 +88,40 @@ ion-nav-view ion-view ion-content{
 }
 
 .addClassContent{
+	padding-top: 0px;
 	div{
 		border-color: transparent !important;
 	}
 	border-color: transparent !important;
-	background-color: #ffba6e;
+	background-color: #FFD3A3;
 	.item-divider{
-		border-color: transparent !important;
-		background-color: rgb(255, 167, 66);
+		margin-top: 15px;
+		border-top: 5px solid rgb(255, 182, 99) !important;
+		background-color: #FFA53E;
 		color: #ffffff;
 	}
 	.item input{
-		border-color: transparent !important;
-		background-color: transparent;
-		color: #fff;
+		color: #ffffff;
+		background-color: rgb(255, 182, 99);
+		width: 95%;
+		margin-top: 5px;
+		border-radius: 20px;
+		padding-left: 5%;
+		border: 2px solid #F08100;
 		&::-webkit-input-placeholder {
-			color: #ffecd6;
+			color: #ffe5c7;
 		}
 
 		&:-moz-placeholder { /* Firefox 18- */
-			color: #ffecd6;
+			color: #ffe5c7;
 		}
 
 		&::-moz-placeholder {  /* Firefox 19+ */
-			color: #ffecd6;
+			color: #ffe5c7;
 		}
 
 		&:-ms-input-placeholder {
-			color: #ffecd6;
+			color: #ffe5c7;
 		}
 	}
 	label{
@@ -131,8 +137,13 @@ ion-nav-view ion-view ion-content{
 		color: #fff;
 	}
 	input{
+		border: 2px solid rgb(255, 236, 214);
 		color: #fff7ee;
-		background-color: transparent;
+		background-color: rgb(255, 182, 99);
+		width: 95%;
+		margin-top: 5px;
+		border-radius: 20px;
+		padding-left: 5%;
 		&::-webkit-input-placeholder {
 			color: #ffe5c7;
 		}
@@ -155,8 +166,8 @@ ion-nav-view ion-view ion-content{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 100%;
-	background-color: #FFA136;
-	border: 7px solid #FFDFBA;
+	background-color: #FFB054;
+	border: 3px solid #FFDFBA;
 	padding: 5%;
 	padding-top: 3%;
 	padding-bottom: 3%;
@@ -185,5 +196,32 @@ ion-nav-view ion-view ion-content{
 		display: inline;
 		font-weight: 800;
 		color: #ffff00;
+	}
+}
+
+.addClassButton{
+	position: fixed;
+	bottom: 12%;
+	width: 10%;
+	right: 7%;
+	padding: 0;
+	border: 0;
+	border-radius: 50% 50% 100% 100% / 50% 50% 100% 100%;
+	background-color: rgb(255, 245, 234);
+	color: rgb(202, 108, 0);
+	z-index: 9001;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.75);
+	&:before{
+		padding: 0 !important;
+		margin: 0 !important;
+		float: none !important;
+	}
+	&.activated{
+		background-color: rgb(255, 247, 239);
+		color: rgb(255, 157, 44);
+		box-shadow: 1px 2px 1px 0px rgba(0,0,0,0.75);
 	}
 }

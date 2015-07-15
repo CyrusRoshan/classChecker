@@ -52,6 +52,7 @@
 
 		<script id="templates/home.html" type="text/ng-template">
 			<ion-view view-title="Classes">
+				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
 				<ion-content class="padding">
 					<div class="classStorage">
 						<div class="className">
@@ -92,43 +93,6 @@
 							Open Seats: 0/29
 						</div>
 					</div>
-
-					<p>
-						<a class="button icon icon-right ion-chevron-right" ng-click="openModal()">FORM</a>
-					</p>
-				</ion-content>
-			</ion-view>
-		</script>
-
-		<script id="templates/facts.html" type="text/ng-template">
-			<ion-view view-title="Facts">
-				<ion-content class="padding">
-					<p>Banging your head against a wall uses 150 calories an hour.</p>
-					<p>Dogs have four toes on their hind feet, and five on their front feet.</p>
-					<p>The ant can lift 50 times its own weight, can pull 30 times its own weight and always falls over on its right side when intoxicated.</p>
-					<p>A cockroach will live nine days without it's head, before it starves to death.</p>
-					<p>Polar bears are left handed.</p>
-					<p>
-						<a class="button icon ion-home" href="#/tab/home"> Home</a>
-						<a class="button icon icon-right ion-chevron-right" href="#/tab/facts2">More Facts</a>
-					</p>
-				</ion-content>
-			</ion-view>
-		</script>
-
-		<script id="templates/facts2.html" type="text/ng-template">
-			<ion-view view-title="Also Factual">
-				<ion-content class="padding">
-					<p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
-					<p>1 in every 4 Americans has appeared on T.V.</p>
-					<p>11% of the world is left-handed.</p>
-					<p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
-					<p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
-					<p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and don't die throughout the movie.</p>
-					<p>
-						<a class="button icon ion-home" href="#/tab/home"> Home</a>
-						<a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
-					</p>
 				</ion-content>
 			</ion-view>
 		</script>
@@ -137,9 +101,9 @@
 			<ion-modal-view class="product edit create">
 				<form name="itemEdit" novalidate>
 					<ion-header-bar class="addClassBar fix-buttons">
-						<a class="button icon-left ion-close" ng-click="closeModal()"></a>
+						<a class="button icon-left ion-close-round" ng-click="closeModal()"></a>
 						<h1 class="title">Add Class Alert</h1>
-						<a class="button icon-left ion-checkmark" ng-click="closeModal()"></a>
+						<a class="button icon-left ion-checkmark-round" ng-click="closeModal()"></a>
 					</ion-header-bar>
 					<ion-content class="addClassContent" has-bouncing="true">
 						<div class="list">
