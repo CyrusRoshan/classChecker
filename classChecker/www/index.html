@@ -53,8 +53,47 @@
 		<script id="templates/home.html" type="text/ng-template">
 			<ion-view view-title="Classes">
 				<ion-content class="padding">
+					<div class="classStorage">
+						<div class="className">
+							{{class.name}}
+						</div>
+						<div class="classSection">
+							{{class.section}}
+						</div>
+						<div class="classNumber">
+							({{class.number}})
+						</div>
+						<br>
+						<div class="classSchedule">
+							{{class.schedule}}
+						</div>
+						<br>
+						<div class="classSeats">
+							Open Seats: {{class.seats}}
+						</div>
+					</div>
+
+					<div class="classStorage">
+						<div class="className">
+							Course Name Stuff
+						</div>
+						<div class="classSection">
+							ABC 1234.123
+						</div>
+						<div class="classNumber">
+							(12345)
+						</div>
+						<br>
+						<div class="classSchedule">
+							Tues & Thurs : 10:00am-12:15pm
+						</div>
+						<br>
+						<div class="classSeats">
+							Open Seats: 0/29
+						</div>
+					</div>
+
 					<p>
-						<a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
 						<a class="button icon icon-right ion-chevron-right" ng-click="openModal()">FORM</a>
 					</p>
 				</ion-content>
@@ -97,12 +136,12 @@
 		<script id="templates/addClassForm.html" type="text/ng-template">
 			<ion-modal-view class="product edit create">
 				<form name="itemEdit" novalidate>
-					<ion-header-bar class="bar-positive fix-buttons">
+					<ion-header-bar class="addClassBar fix-buttons">
 						<a class="button icon-left ion-close" ng-click="closeModal()"></a>
 						<h1 class="title">Add Class Alert</h1>
 						<a class="button icon-left ion-checkmark" ng-click="closeModal()"></a>
 					</ion-header-bar>
-					<ion-content has-bouncing="true">
+					<ion-content class="addClassContent" has-bouncing="true">
 						<div class="list">
 							<div class="item item-divider">
 								Class Name
@@ -133,31 +172,10 @@
 						</label>
 						Push Notifications
 					</li>
-					<li class="item settingsCheckbox item-checkbox">
-						<label class="checkbox">
-							<input type="checkbox">
-						</label>
-						Push Notifications
-					</li>
-					<li class="item settingsCheckbox item-checkbox">
-						<label class="checkbox">
-							<input type="checkbox">
-						</label>
-						Push Notifications
-					</li>
-					<li class="item settingsCheckbox item-checkbox">
-						<label class="checkbox">
-							<input type="checkbox">
-						</label>
-						Push Notifications
-					</li>
-					<li class="item settingsCheckbox item-checkbox">
-						<label class="checkbox">
-							<input type="checkbox">
-						</label>
-						Push Notifications
-					</li>
-
+					<label class="item item-input settingsInput item-stacked-label">
+						<span class="input-label">Update Interval in Hours</span>
+						<input type="number" placeholder="e.g. 0 (never) OR 1/60 OR 24">
+					</label>
 				</ion-content>
 			</ion-view>
 		</script>

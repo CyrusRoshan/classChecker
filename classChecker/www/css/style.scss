@@ -1,3 +1,37 @@
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(../files/raleway400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Raleway Medium'), local('Raleway-Medium'), url(../files/raleway500.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url(../oxygen400a.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url(../files/oxygen400b.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
 .editable-image {
 	height:200px;
 	text-align:center;
@@ -25,16 +59,130 @@ ion-nav-view ion-view ion-content{
 	width: 100%;
 	border-radius: 20px;
 	padding: 5%;
+	border-color: transparent !important;
 }
 
 .settingsCheckbox{
-	background-color: rgb(245, 154, 50);
-	border: transparent;
+	background-color: #FFA136;
 	color: #ffffff;
-	border-radius: 15px;
+	border-radius: 30px;
 	border: 2px solid rgb(255, 236, 214);
 	margin-bottom: 7px;
 	.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before{
 		border-color: rgb(255, 236, 214);
+		background: #D07000;
+	}
+}
+
+.addClassBar{
+	border-color: transparent !important;
+	background-color: rgb(240, 129, 0);
+	h1{
+		color: white;
+	}
+	.button{
+		border-color: transparent !important;
+		background-color: rgb(255, 173, 77);
+		color: white;
+	}
+}
+
+.addClassContent{
+	div{
+		border-color: transparent !important;
+	}
+	border-color: transparent !important;
+	background-color: #ffba6e;
+	.item-divider{
+		border-color: transparent !important;
+		background-color: rgb(255, 167, 66);
+		color: #ffffff;
+	}
+	.item input{
+		border-color: transparent !important;
+		background-color: transparent;
+		color: #fff;
+		&::-webkit-input-placeholder {
+			color: #ffecd6;
+		}
+
+		&:-moz-placeholder { /* Firefox 18- */
+			color: #ffecd6;
+		}
+
+		&::-moz-placeholder {  /* Firefox 19+ */
+			color: #ffecd6;
+		}
+
+		&:-ms-input-placeholder {
+			color: #ffecd6;
+		}
+	}
+	label{
+		border-color: transparent !important;
+	}
+}
+
+.settingsInput{
+	background-color: #FFA136;
+	border-radius: 30px;
+	border: 2px solid rgb(255, 236, 214);
+	span{
+		color: #fff;
+	}
+	input{
+		color: #fff7ee;
+		background-color: transparent;
+		&::-webkit-input-placeholder {
+			color: #ffe5c7;
+		}
+
+		&:-moz-placeholder { /* Firefox 18- */
+			color: #ffe5c7;
+		}
+
+		&::-moz-placeholder {  /* Firefox 19+ */
+			color: #ffe5c7;
+		}
+
+		&:-ms-input-placeholder {
+			color: #ffe5c7;
+		}
+	}
+}
+
+.classStorage{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	background-color: #FFA136;
+	border: 3px solid white;
+	padding: 5%;
+	padding-bottom: 3%;
+	color: white;
+	border-radius: 10px;
+	font-weight: 500;
+	.className{
+		font-weight: 600;
+		width: 100%;
+	}
+	.classSection{
+		padding-left: 5%;
+		display: inline;
+	}
+	.classNumber{
+		display: inline;
+		font-weight: 800;
+		color: #ffff00;
+	}
+	.classSchedule{
+		padding-left: 5%;
+		display: inline;
+	}
+	.classSeats{
+		display: inline;
+		padding-left: 5%;
+		font-weight: 800;
+		color: #ffff00;
 	}
 }
