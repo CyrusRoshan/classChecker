@@ -20,6 +20,8 @@
 
 		<!-- your app's js -->
 		<script src="js/app.js"></script>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/format.js"></script>
 	</head>
 
 	<body>
@@ -111,14 +113,14 @@
 								Class Name
 							</div>
 							<label class="item item-input item-stacked-label">
-								<input type="text" placeholder="Discrete Math">
+								<input type="text" placeholder="Discrete Math"  ng-model="class.name">
 							</label>
 
 							<div class="item item-divider">
 								Class Section OR Class Number
 							</div>
 							<label class="item item-input item-stacked-label">
-								<input type="text" placeholder="CS 2305.001 OR 84716">
+								<input type="text" placeholder="CS 2305.001 OR 84716" ng-model="class.SectionOrNumber">
 							</label>
 							<img class="classSearchImage" src="img/classSearch.png">
 						</div>
@@ -132,13 +134,13 @@
 				<ion-content class="padding">
 					<li class="item settingsCheckbox item-checkbox">
 						<label class="checkbox">
-							<input type="checkbox">
+							<input type="checkbox"  ng-model="pushNotifications">
 						</label>
 						Push Notifications
 					</li>
 					<label class="item item-input settingsInput item-stacked-label">
 						<span class="input-label">Update Interval in Hours</span>
-						<input type="number" placeholder="e.g. 0 (never) OR 1/60 OR 24">
+						<input type="number" placeholder="e.g. 0 (never) OR 1/60 OR 24"  ng-model="updateInterval">
 					</label>
 				</ion-content>
 			</ion-view>
