@@ -1,4 +1,4 @@
-angular.module('ionicApp', ['ionic'])
+var app = angular.module('ionicApp', ['ionic'])
 
 	.config(function($stateProvider, $urlRouterProvider) {
 
@@ -55,8 +55,7 @@ angular.module('ionicApp', ['ionic'])
 		animation: 'slide-in-up'
 	}).then(function(modal) {
 		$scope.modal = modal;
-		console.log(modal);
-		setTimeout(function(){console.log(modal);}, 2000);
+		//console.log(modal);
 	});
 	$scope.openModal = function(){
 		$scope.modal.show();
@@ -73,4 +72,29 @@ angular.module('ionicApp', ['ionic'])
 
 		}
 	}
+
+});
+
+
+app.controller('classesCtrl', function($scope, $timeout) {
+  $scope.classList =
+	  [
+		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
+		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
+	  ];
+console.log($scope.classList[1].name);
+  $scope.doRefresh = function() {
+
+	console.log('Refreshing!');
+	$timeout( function() {
+	  //simulate async response
+	  $scope.classList.push({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
+
+	  //Stop the ion-refresher from spinning
+	  $scope.$broadcast('scroll.refreshComplete');
+
+	}, 1000);
+
+  };
+
 });

@@ -56,10 +56,11 @@
 		<script id="templates/home.html" type="text/ng-template">
 			<ion-view view-title="Classes">
 				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
-				<ion-content class="padding">
+				<a class="button icon icon-right ion-minus-round removeClassButton" ng-click="openModal()"></a>
+				<ion-content class="padding" ng-controller="classesCtrl">
 					<ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
 					</ion-refresher>
-					<div class="classStorage">
+					<div ng-repeat="class in classList" class="classStorage">
 						<div class="className">
 							{{class.name}}
 						</div>
@@ -76,26 +77,6 @@
 						<br>
 						<div class="classSeats">
 							Open Seats: {{class.seats}}
-						</div>
-					</div>
-
-					<div class="classStorage">
-						<div class="className">
-							Course Name Stuff
-						</div>
-						<div class="classSection">
-							ABC 1234.123
-						</div>
-						<div class="classNumber">
-							(12345)
-						</div>
-						<br>
-						<div class="classSchedule">
-							Tues & Thurs : 10:00am-12:15pm
-						</div>
-						<br>
-						<div class="classSeats">
-							Open Seats: 0/29
 						</div>
 					</div>
 				</ion-content>

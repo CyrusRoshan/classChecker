@@ -4,32 +4,50 @@ $( document ).ready(function() {
 
 function formatAddClassButton(){
 
-
+	var addClassWidth = $(".addClassButton").width();
+	var addClassHeight = $(".addClassButton").height();
 	if(ionic.Platform.isIOS()){
-		if( $(".addClassButton").width() > $(".addClassButton").height() ){
+		var tabNavTabsHeight = $(".tab-nav.tabs").height();
+		if( addClassWidth > addClassHeight ){
 			$(".addClassButton").css({
-				"height": $(".addClassButton").width() + "px",
-				"bottom": $(".tab-nav.tabs").height() + 20 + "px",
+				"height": addClassWidth + "px",
+				"bottom": tabNavTabsHeight + 20 + "px",
+			});
+			$(".removeClassButton").css({
+				"height": addClassWidth + "px",
+				"bottom": tabNavTabsHeight + 20 + "px",
 			});
 		}
 		else{
 			$(".addClassButton").css({
-				"width": $(".addClassButton").height() + "px",
-				"bottom": $(".tab-nav.tabs").height() + 20 + "px",
+				"width": addClassHeight + "px",
+				"bottom": tabNavTabsHeight + 20 + "px",
+			});
+			$(".removeClassButton").css({
+				"width": addClassHeight + "px",
+				"bottom": tabNavTabsHeight + 20 + "px",
 			});
 		}
 	}
 
 	if(ionic.Platform.isAndroid()){
-		if( $(".addClassButton").width() > $(".addClassButton").height() ){
+		if( addClassWidth > addClassHeight ){
 			$(".addClassButton").css({
-				"height": $(".addClassButton").width() + "px",
+				"height": addClassWidth + "px",
+				"bottom": 20 + "px",
+			});
+			$(".removeClassButton").css({
+				"height": addClassWidth + "px",
 				"bottom": 20 + "px",
 			});
 		}
 		else{
 			$(".addClassButton").css({
-				"width": $(".addClassButton").height() + "px",
+				"width": addClassHeight + "px",
+				"bottom": 20 + "px",
+			});
+			$(".removeClassButton").css({
+				"width": addClassHeight + "px",
 				"bottom": 20 + "px",
 			});
 		}

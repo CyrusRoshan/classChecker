@@ -227,6 +227,37 @@ ion-nav-view ion-view ion-content{
 	}
 }
 
+.removeClassButton{
+	position: fixed;
+	bottom: 14%;
+	width: 10%;
+	left: 20px;
+	padding: 0;
+	border: 0;
+	border-radius: 100% 50% 100% 50% / 100% 50% 100% 50%;
+	background-color: rgb(255, 245, 234);
+	color: rgb(202, 108, 0);
+	z-index: 9001;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.75);
+	&:before{
+		padding: 0 !important;
+		margin: 0 !important;
+		float: none !important;
+	}
+	&.activated{
+		background-color: rgb(255, 247, 239);
+		color: rgb(255, 157, 44);
+		box-shadow: 1px 2px 1px 0px rgba(0,0,0,0.75);
+	}
+}
+
+.scroll-refresher{
+	top: -70px;
+}
+
 /*
 .platform-android{
 	.addClassButton{

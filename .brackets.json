@@ -1,7 +1,0 @@
-{
-    "jscodehints.detectedExclusions": [
-        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/www/js/controllers.js",
-        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/www/js/format.js"
-    ]
-}
