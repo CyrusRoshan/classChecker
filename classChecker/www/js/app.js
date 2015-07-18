@@ -17,22 +17,6 @@ angular.module('ionicApp', ['ionic'])
 			}
 		}
 	})
-		.state('tabs.facts', {
-		url: "/facts",
-		views: {
-			'home-tab': {
-				templateUrl: "templates/facts.html"
-			}
-		}
-	})
-		.state('tabs.facts2', {
-		url: "/facts2",
-		views: {
-			'home-tab': {
-				templateUrl: "templates/facts2.html"
-			}
-		}
-	})
 		.state('tabs.about', {
 		url: "/about",
 		views: {
@@ -71,11 +55,22 @@ angular.module('ionicApp', ['ionic'])
 		animation: 'slide-in-up'
 	}).then(function(modal) {
 		$scope.modal = modal;
+		console.log(modal);
+		setTimeout(function(){console.log(modal);}, 2000);
 	});
 	$scope.openModal = function(){
 		$scope.modal.show();
 	}
 	$scope.closeModal = function(){
 		$scope.modal.hide();
+	}
+	$scope.addClass = function(){
+		if(true){
+			saveAddedClassData();
+			$scope.modal.hide();
+		}
+		else{
+
+		}
 	}
 });

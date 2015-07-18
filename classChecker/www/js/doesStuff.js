@@ -1,0 +1,52 @@
+//save data from adding classes
+function saveAddedClassData(){
+	var post = {
+		name: 123,
+		text: 'Today was a good day'
+	};
+
+	window.localStorage['post']
+
+	var post = JSON.parse(window.localStorage['post'] || '{}');
+}
+
+
+//refresh Stuff
+var app = angular.module('ionicApp', ['ionic'])
+
+app.controller('TodosCtrl', function($scope) {
+	$scope.todos =  [
+		{name: "Do the dishes"},
+		{name: "Take out the trash"}
+	]
+
+	$scope.doRefresh = function() {
+		$scope.todos.unshift({name: 'Incoming todo ' + Date.now()})
+		$scope.$broadcast('scroll.refreshComplete');
+		$scope.$apply()
+	};
+
+})
+
+angular.module('invoice1', [])
+	.controller('InvoiceController', function() {
+	this.qty = 1;
+	this.cost = 2;
+	this.inCurr = 'EUR';
+	this.currencies = ['USD', 'EUR', 'CNY'];
+	this.usdToForeignRates = {
+		USD: 1,
+		EUR: 0.74,
+		CNY: 6.09
+	};
+
+	this.total = function total(outCurr) {
+		return this.convertCurrency(this.qty * this.cost, this.inCurr, outCurr);
+	};
+	this.convertCurrency = function convertCurrency(amount, inCurr, outCurr) {
+		return amount * this.usdToForeignRates[outCurr] / this.usdToForeignRates[inCurr];
+	};
+	this.pay = function pay() {
+		window.alert("Thanks!");
+	};
+});
