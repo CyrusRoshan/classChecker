@@ -23,6 +23,7 @@
 		<script src="js/jquery-2.1.4.min.js"></script>
 		<script src="js/format.js"></script>
 		<script src="js/doesStuff.js"></script>
+		<!--<script src="js/artoo.js"></script>-->
 	</head>
 
 	<body>
@@ -58,25 +59,29 @@
 				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
 				<a class="button icon icon-right ion-minus-round removeClassButton" ng-click="openModal()"></a>
 				<ion-content class="padding" ng-controller="classesCtrl">
-					<ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+					<ion-refresher pulling-text="Manual Refresh" on-refresh="doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
 					</ion-refresher>
 					<div ng-repeat="class in classList" class="classStorage">
 						<div class="className">
 							{{class.name}}
 						</div>
-						<div class="classSection">
-							{{class.section}}
+						<div class="listRow">
+							<div class="classSection">
+								{{class.section}}
+							</div>
+							<div class="classNumber">
+								({{class.number}})
+							</div>
 						</div>
-						<div class="classNumber">
-							({{class.number}})
+						<div class="listRow">
+							<div class="classSchedule">
+								{{class.schedule}}
+							</div>
 						</div>
-						<br>
-						<div class="classSchedule">
-							{{class.schedule}}
-						</div>
-						<br>
-						<div class="classSeats">
-							Open Seats: {{class.seats}}
+						<div class="listRow">
+							<div class="classSeats">
+								Open Seats: {{class.seats}}
+							</div>
 						</div>
 					</div>
 				</ion-content>

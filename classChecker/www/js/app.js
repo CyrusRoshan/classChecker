@@ -88,7 +88,7 @@ console.log($scope.classList[1].name);
 	console.log('Refreshing!');
 	$timeout( function() {
 	  //simulate async response
-	  $scope.classList.push({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
+	  $scope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
 
 	  //Stop the ion-refresher from spinning
 	  $scope.$broadcast('scroll.refreshComplete');

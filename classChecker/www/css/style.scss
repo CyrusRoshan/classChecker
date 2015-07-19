@@ -174,12 +174,13 @@ ion-nav-view ion-view ion-content{
 	padding-bottom: 3%;
 	color: white;
 	border-radius: 20px;
-	font-weight: 500;
+	font-weight: 300;
+	text-align: center;
 	.className{
-		font-weight: 600;
+		font-weight: 500;
 		width: 100%;
-		font-size: 17px;
-		margin-bottom: 5px;
+		font-size: 30px;
+		margin-bottom: 10px;
 		text-align: center;
 	}
 	.classSection{
@@ -187,7 +188,7 @@ ion-nav-view ion-view ion-content{
 	}
 	.classNumber{
 		display: inline;
-		font-weight: 800;
+		font-weight: 400;
 		color: #ffff00;
 	}
 	.classSchedule{
@@ -195,8 +196,12 @@ ion-nav-view ion-view ion-content{
 	}
 	.classSeats{
 		display: inline;
-		font-weight: 800;
+		font-weight: 400;
 		color: #ffff00;
+	}
+	.listRow{
+		margin-top: 10px;
+		font-size: 23px;
 	}
 }
 
@@ -255,13 +260,44 @@ ion-nav-view ion-view ion-content{
 }
 
 .scroll-refresher{
-	top: -70px;
+	top: -80px;
+	background-color: rgb(255, 182, 99);
+	margin-left: 30%;
+	margin-right: 30%;
+	border-radius: 20px;
+	border: 2px solid white;
+	padding-top: 15px;
+}
+.scroll-refresher.refreshing{
+	top: -80px;
+	background-color: rgb(255, 182, 99);
+	margin-left: 35%;
+	margin-right: 35%;
+	border-radius: 20px;
+	border: 2px solid white;
+	height: 73px;
 }
 
+.text-pulling{
+	color: white; //rgb(255, 108, 0);
+}
+
+.ion-chevron-down:before{
+	color: white; //rgb(255, 137, 0);
+}
+
+.spinner svg{
+	stroke: white; //rgb(255, 128, 48);
+	//border-radius: 10px;
+	//border: 3px solid rgb(255, 204, 145);
+	height: 50px;
+	width: 60px;
+	//padding: 10px;
+}
 /*
 .platform-android{
-	.addClassButton{
-		bottom: 3%;
-		right: 5%;
-	}
+.addClassButton{
+bottom: 3%;
+right: 5%;
+}
 }*/
