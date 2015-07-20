@@ -1,0 +1,10 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/angular-ui/angular-ui-router.min.js",
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/ionic-angular.min.js",
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/ionic.bundle.js",
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/ionic.bundle.min.js",
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/ionic.js",
+        "/Users/CyrusRoshan/GitHub/Active/classChecker/classChecker/platforms/ios/build/emulator/classChecker.app/www/lib/ionic/js/ionic.min.js"
+    ]
+}

@@ -23,7 +23,6 @@
 		<script src="js/jquery-2.1.4.min.js"></script>
 		<script src="js/format.js"></script>
 		<script src="js/doesStuff.js"></script>
-		<!--<script src="js/artoo.js"></script>-->
 	</head>
 
 	<body>
@@ -96,22 +95,35 @@
 						<h1 class="title">Add Class Alert</h1>
 						<a class="button icon-left ion-checkmark-round" ng-click="addClass()"></a>
 					</ion-header-bar>
-					<ion-content class="addClassContent" has-bouncing="true">
+					<ion-content class="addClassContent" has-bouncing="true" ng-controller="addClassController as addClass">
 						<div class="list">
 							<div class="item item-divider">
 								Class Name
 							</div>
 							<label class="item item-input item-stacked-label">
-								<input type="text" placeholder="Discrete Math"  ng-model="class.name">
+								<input type="text" placeholder="Discrete Math"  ng-model="addClass.name" required>
 							</label>
 
-							<div class="item item-divider">
+							<div class="item item-divider" ng-class="addClass.error()">
 								Class Section OR Class Number
 							</div>
 							<label class="item item-input item-stacked-label">
-								<input type="text" placeholder="CS 2305.001 OR 84716" ng-model="class.SectionOrNumber">
+								<input type="text" placeholder="CS 2305.001 OR 84716" ng-model="addClass.sectionNumber" ng-class="addClass.error()" required>
 							</label>
 							<img class="classSearchImage" src="img/classSearch.png">
+							<div class="item item-divider">
+								Term/Semester
+							</div>
+							<div class="list">
+								<label class="item item-input item-select">
+									<div class="input-label">
+										Selected Term
+									</div>
+									<select ng-model="addClass.defaultTerm">
+										<option ng-repeat="term in addClass.terms">{{term}}</option>
+									</select>
+								</label>
+							</div>
 						</div>
 					</ion-content>
 				</form>

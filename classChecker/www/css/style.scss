@@ -56,9 +56,11 @@ ion-nav-view ion-view ion-content{
 }
 
 .classSearchImage{
-	width: 90%;
+	width: 70%;
 	border-radius: 20px;
 	margin: 5%;
+	margin-left: 15%;
+	margin-right: 15%;
 	border: 5px solid rgb(255, 165, 62) !important;
 }
 
@@ -100,6 +102,10 @@ ion-nav-view ion-view ion-content{
 		border-top: 5px solid rgb(255, 182, 99) !important;
 		background-color: #FFA53E;
 		color: #ffffff;
+		&.error{
+			border-top: 5px solid rgb(255, 99, 99) !important;
+			background-color: #ff3e3e;
+		}
 	}
 	.item input{
 		color: #ffffff;
@@ -124,9 +130,22 @@ ion-nav-view ion-view ion-content{
 		&:-ms-input-placeholder {
 			color: #ffe5c7;
 		}
+		&.error{
+			background-color: rgb(255, 99, 99);
+			border: 2px solid #f00000;
+		}
 	}
 	label{
 		border-color: transparent !important;
+	}
+	.item-select{
+		& *{
+			color: rgb(255, 244, 232);
+		}
+		background-color: #FFB663;
+		select{
+			background-color: #FFB663;
+		}
 	}
 }
 
@@ -139,7 +158,8 @@ ion-nav-view ion-view ion-content{
 	}
 	input{
 		border: 2px solid rgb(255, 236, 214);
-		color: #fff7ee;
+		color: #ffffff;
+		font-weight: 500;
 		background-color: rgb(255, 182, 99);
 		width: 95%;
 		margin-top: 5px;
@@ -269,13 +289,16 @@ ion-nav-view ion-view ion-content{
 	padding-top: 15px;
 }
 .scroll-refresher.refreshing{
-	top: -80px;
+	top: -70px;
 	background-color: rgb(255, 182, 99);
 	margin-left: 35%;
 	margin-right: 35%;
-	border-radius: 20px;
+	border-radius: 15px;
 	border: 2px solid white;
-	height: 73px;
+	height: 55px;
+	.ionic-refresher-content{
+		bottom: 0px;
+	}
 }
 
 .text-pulling{
@@ -291,7 +314,7 @@ ion-nav-view ion-view ion-content{
 	//border-radius: 10px;
 	//border: 3px solid rgb(255, 204, 145);
 	height: 50px;
-	width: 60px;
+	width: 50px;
 	//padding: 10px;
 }
 /*

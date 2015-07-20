@@ -48,7 +48,7 @@ var app = angular.module('ionicApp', ['ionic'])
 })
 
 	.controller('HomeTabCtrl', function($scope, $ionicModal) {
-	console.log('HomeTabCtrl');
+	//console.log('HomeTabCtrl');
 	formatAddClassButton();
 	$ionicModal.fromTemplateUrl('templates/addClassForm.html', {
 		scope: $scope,
@@ -82,10 +82,10 @@ app.controller('classesCtrl', function($scope, $timeout) {
 		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
 		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
 	  ];
-console.log($scope.classList[1].name);
+//console.log($scope.classList[1].name);
   $scope.doRefresh = function() {
 
-	console.log('Refreshing!');
+	//console.log('Refreshing!');
 	$timeout( function() {
 	  //simulate async response
 	  $scope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
