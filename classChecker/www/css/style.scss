@@ -82,6 +82,7 @@ ion-nav-view ion-view ion-content{
 	background-color: rgb(240, 129, 0);
 	h1{
 		color: white;
+		text-align: center !important;
 	}
 	.button{
 		border-color: transparent !important;
@@ -105,6 +106,24 @@ ion-nav-view ion-view ion-content{
 		&.error{
 			border-top: 5px solid rgb(255, 99, 99) !important;
 			background-color: #ff3e3e;
+		}
+	}
+	.link{
+		text-decoration: none;
+		width: 70%;
+		margin-left: 15%;
+		margin-right: 15%;
+		border-radius: 5px;
+		padding: 5%;
+		background-color: rgb(255, 163, 163);
+		text-align: center;
+		display: inline-block;
+		text-align: center;
+		font-size: 25px;
+		div{
+			text-decoration: none;
+			color: red;
+			font-weight: 300;
 		}
 	}
 	.item input{

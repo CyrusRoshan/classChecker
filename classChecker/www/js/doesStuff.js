@@ -13,13 +13,33 @@ function saveAddedClassData(){
 
 //the addClass modal's angular code:
 app.controller('addClassController', function() {
+	if(ionic.Platform.isIOS()){
+		//are you serious ios, do you think you're special?
 
-	var currentDate = new Date().toLocaleDateString(); //in format M(M)/D(D)/YYYY
-	var currentMonth = parseInt(currentDate.split("/")[0]);
-	var currentDay = parseInt(currentDate.split("/")[1]);
-	var currentYear = parseInt(currentDate.split("/")[2]);
-	var nextYear = currentYear + 1;
-	var lastYear = currentYear - 1;
+		var currentDate = new Date().toLocaleDateString();
+		var currentMonth = currentDate.split(" ")[0];
+		var currentDay = parseInt(currentDate.split(" ")[1].slice(0, - 1));
+		var currentYear = parseInt(currentDate.split(" ")[2]);
+		var nextYear = currentYear + 1;
+		var lastYear = currentYear - 1;
+		var monthList = ["January", "February", "March", "April", "May", "June", "July", "September", "October", "November", "December"];
+
+		for(i=0;i<11;i++){
+			if(currentMonth	== monthList[i]){
+				currentMonth = i;
+			}
+		}
+
+	}
+
+	else{
+		var currentDate = new Date().toLocaleDateString(); //in format M(M)/D(D)/YYYY
+		var currentMonth = parseInt(currentDate.split("/")[0]);
+		var currentDay = parseInt(currentDate.split("/")[1]);
+		var currentYear = parseInt(currentDate.split("/")[2]);
+		var nextYear = currentYear + 1;
+		var lastYear = currentYear - 1;
+	}
 	/*semesters at UTD:
 	Fall year x: Aug 24
 		Middle: Nov 1 x
