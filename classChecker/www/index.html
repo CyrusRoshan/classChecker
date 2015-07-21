@@ -104,11 +104,11 @@
 								<input type="text" placeholder="Discrete Math"  ng-model="addClass.name" required>
 							</label>
 
-							<div class="item item-divider" ng-class="addClass.error()">
+							<div class="item item-divider" ng-class="$root.error()">
 								Class Section OR Class Number
 							</div>
 							<label class="item item-input item-stacked-label">
-								<input type="text" placeholder="CS 2305.001 OR 84716" ng-model="addClass.sectionNumber" ng-class="addClass.error()" required>
+								<input type="text" placeholder="CS 2305.001 OR 84716" ng-model="addClass.sectionNumber" ng-class="$root.error()" required>
 							</label>
 							<img class="classSearchImage" src="img/classSearch.png">
 							<a href="#" onclick="window.open('http://coursebook.utdallas.edu/guidedsearch', '_system', 'location=yes'); return false;" class="link">

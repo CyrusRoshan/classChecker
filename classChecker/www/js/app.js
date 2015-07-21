@@ -1,6 +1,6 @@
 var app = angular.module('ionicApp', ['ionic'])
 
-	.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 		.state('tabs', {
@@ -47,7 +47,7 @@ var app = angular.module('ionicApp', ['ionic'])
 
 })
 
-	.controller('HomeTabCtrl', function($scope, $ionicModal) {
+.controller('HomeTabCtrl', function($scope, $ionicModal, $rootScope) {
 	//console.log('HomeTabCtrl');
 	formatAddClassButton();
 	$ionicModal.fromTemplateUrl('templates/addClassForm.html', {
@@ -64,12 +64,13 @@ var app = angular.module('ionicApp', ['ionic'])
 		$scope.modal.hide();
 	}
 	$scope.addClass = function(){
-		if(true){
-			saveAddedClassData();
+		//console.log($rootScope.error());
+		if($rootScope.error() == ""){
+			$rootScope.saveAddedClassData();
 			$scope.modal.hide();
 		}
 		else{
-
+			alert("Please properly format your class section or class number");
 		}
 	}
 
@@ -77,24 +78,23 @@ var app = angular.module('ionicApp', ['ionic'])
 
 
 app.controller('classesCtrl', function($scope, $timeout) {
-  $scope.classList =
-	  [
-		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
-		  {name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"},
-	  ];
-//console.log($scope.classList[1].name);
-  $scope.doRefresh = function() {
+	$scope.classList =
+		[
+		{name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"}
+	];
+	//console.log($scope.classList[1].name);
+	$scope.doRefresh = function() {
 
-	//console.log('Refreshing!');
-	$timeout( function() {
-	  //simulate async response
-	  $scope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
+		//console.log('Refreshing!');
+		$timeout( function() {
+			//simulate async response
+			$scope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
 
-	  //Stop the ion-refresher from spinning
-	  $scope.$broadcast('scroll.refreshComplete');
+			//Stop the ion-refresher from spinning
+			$scope.$broadcast('scroll.refreshComplete');
 
-	}, 1000);
+		}, 1000);
 
-  };
+	};
 
 });

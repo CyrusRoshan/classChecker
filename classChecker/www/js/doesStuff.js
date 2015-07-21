@@ -12,7 +12,7 @@ function saveAddedClassData(){
 
 
 //the addClass modal's angular code:
-app.controller('addClassController', function() {
+app.controller('addClassController', function($scope, $rootScope) {
 	if(ionic.Platform.isIOS()){
 		//are you serious ios, do you think you're special?
 
@@ -40,50 +40,58 @@ app.controller('addClassController', function() {
 		var nextYear = currentYear + 1;
 		var lastYear = currentYear - 1;
 	}
-	/*semesters at UTD:
+	/*
+	semesters at UTD:
+
 	Fall year x: Aug 24
-		Middle: Nov 1 x
+	Middle: Nov 1 x
 	Spring year x+1: Jan 11
-		Middle: Mar 17 x+1
+	Middle: Mar 17 x+1
 	Summer year x+1: May 23
-		Middle: Aug 12 x+1
+	Middle: Aug 12 x+1
 	Fall year x+1: Aug 24
 	*/
-
-
 
 	var decimalDM = currentMonth + currentDay/10;
 	if((decimalDM >= 11.01) || (decimalDM < 3.17)){
 		//must be Spring registration time
-		this.defaultTerm = "Spring " + currentYear.toString();
-		this.terms = ["Fall " + lastYear, this.defaultTerm, "Summer " + currentYear];
+		$scope.defaultTerm = "Spring " + currentYear.toString();
+		$scope.terms = ["Fall " + lastYear, $scope.defaultTerm, "Summer " + currentYear];
 	}
 	else if((decimalDM >= 3.17) && (decimalDM < 8.12)){
 		//must be Spring registration time
-		this.defaultTerm = "Summer " + currentYear.toString();
-		this.terms = ["Spring " + currentYear, this.defaultTerm, "Fall " + nextYear];
+		$scope.defaultTerm = "Summer " + currentYear.toString();
+		$scope.terms = ["Spring " + currentYear, $scope.defaultTerm, "Fall " + nextYear];
 	}
 	else if((decimalDM >= 8.12) && (decimalDM < 11.01)){
 		//must be Spring registration time
-		this.defaultTerm = "Fall " + currentYear.toString();
-		this.terms = ["Summer " + currentYear, this.defaultTerm, "Spring " + nextYear];
+		$scope.defaultTerm = "Fall " + currentYear.toString();
+		$scope.terms = ["Summer " + currentYear, $scope.defaultTerm, "Spring " + nextYear];
 	}
 
 
 
-	this.error = function error() {
-		if(this.sectionNumber === undefined){
+	$rootScope.error = function error(){
+		//console.log($scope.addClass.sectionNumber);
+		if($scope.addClass.sectionNumber === undefined){
+			//console.log("A");
 			return "error";
 		}
-		if((this.sectionNumber.toString().length == 5) && (parseInt(this.sectionNumber).toString().length == 5)){
+		if(($scope.addClass.sectionNumber.toString().length == 5) && (parseInt($scope.addClass.sectionNumber).toString().length == 5)){
+			//console.log("B");
 			return "";
 		}
-		else if((isNaN(parseInt(this.sectionNumber.split(" ")[0])) === true) && (this.sectionNumber.split(" ")[1].split(".")[0].length == 4) && (parseInt(this.sectionNumber.split(" ")[1].split(".")[0]).toString().length == 4)  && (this.sectionNumber.split(" ")[1].split(".")[0].length == 4) && (this.sectionNumber.split(" ")[1].split(".")[1].length == 3)){
+		else if((isNaN(parseInt($scope.addClass.sectionNumber.split(" ")[0])) === true) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && (parseInt($scope.addClass.sectionNumber.split(" ")[1].split(".")[0]).toString().length == 4)  && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[1].length == 3)){
+			//console.log("C");
 			return "";
 		}
 		else{
+			//console.log("D");
 			return "error";
 		}
 	};
 
+	$rootScope.saveAddedClassData = function saveAddedClassData(){
+		console.log("ayy it works");
+	}
 });
