@@ -1,23 +1,7 @@
-//save data from adding classes
-app.factory('$localstorage', ['$window', function($window) {
-	return {
-		set: function(key, value) {
-			$window.localStorage[key] = value;
-		},
-		get: function(key, defaultValue) {
-			return $window.localStorage[key] || defaultValue;
-		},
-		setObject: function(key, value) {
-			$window.localStorage[key] = JSON.stringify(value);
-		},
-		getObject: function(key) {
-			return JSON.parse($window.localStorage[key] || '{}');
-		}
-	}
-}]);
+
 
 //the addClass modal's angular code:
-app.controller('addClassController', function($scope, $timeout, $rootScope) {
+app.controller('addClassController', function($scope, $timeout, $rootScope, $localstorage) {
 	if(ionic.Platform.isIOS()){
 		//are you serious ios, do you think you're special?
 
@@ -131,6 +115,8 @@ app.controller('addClassController', function($scope, $timeout, $rootScope) {
 			$scope.addClass.name = "";
 			$scope.addClass.sectionNumber = "";
 			$scope.addClass.snType = "";
+			$localstorage.setObject('classList', $rootScope.classList);
+			console.log($localstorage.getObject('classList'));
 		});
 
 	}

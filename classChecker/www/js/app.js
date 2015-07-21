@@ -1,4 +1,5 @@
-var app = angular.module('ionicApp', ['ionic'])
+var app = angular.module('ionicApp', ['ionic', 'ionic.utils'])
+var utilities = angular.module('ionic.utils', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -82,14 +83,46 @@ var app = angular.module('ionicApp', ['ionic'])
 
 });
 
+//save data from adding classes
+utilities.factory('$localstorage', ['$window', function($window) {
+	return {
+		set: function(key, value) {
+			$window.localStorage[key] = value;
+		},
+		get: function(key, defaultValue) {
+			return $window.localStorage[key] || defaultValue;
+		},
+		setObject: function(key, value) {
+			$window.localStorage[key] = JSON.stringify(value);
+		},
+		getObject: function(key) {
+			return JSON.parse($window.localStorage[key] || '{}');
+		}
+	}
+}]);
 
-app.controller('classesCtrl', function($scope, $timeout, $rootScope){
-	//console.log($localstorage.getObject('post'));
-	$rootScope.classList =
-		[
-		{name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"}
-	];
-	//console.log($scope.classList[1].name);
+//main screen's class displayer
+app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstorage){
+
+	//$localstorage.setObject('classList', {});
+	//uncomment the above line to clear data
+
+	$scope.tempClassList = $localstorage.getObject('classList');
+	console.log($scope.tempClassList.length);
+	if($scope.tempClassList.length > 0){
+		console.log("A");
+		console.log($scope.tempClassList);
+		$rootScope.classList = $scope.tempClassList;
+	}
+	else{
+		console.log("B");
+		console.log($scope.tempClassList);
+		$rootScope.classList =
+			[
+			{name: "First Run", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats"}
+		];
+	}
+
 	$scope.doRefresh = function() {
 
 		//console.log('Refreshing!');
