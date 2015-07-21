@@ -84,6 +84,7 @@ var app = angular.module('ionicApp', ['ionic'])
 
 
 app.controller('classesCtrl', function($scope, $timeout, $rootScope){
+	//console.log($localstorage.getObject('post'));
 	$rootScope.classList =
 		[
 		{name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"}

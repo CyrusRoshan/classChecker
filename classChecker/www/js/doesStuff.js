@@ -1,18 +1,23 @@
 //save data from adding classes
-function saveAddedClassData(){
-	var post = {
-		name: 123,
-		text: 'Today was a good day'
-	};
-
-	window.localStorage['post']
-
-	var post = JSON.parse(window.localStorage['post'] || '{}');
-}
-
+app.factory('$localstorage', ['$window', function($window) {
+	return {
+		set: function(key, value) {
+			$window.localStorage[key] = value;
+		},
+		get: function(key, defaultValue) {
+			return $window.localStorage[key] || defaultValue;
+		},
+		setObject: function(key, value) {
+			$window.localStorage[key] = JSON.stringify(value);
+		},
+		getObject: function(key) {
+			return JSON.parse($window.localStorage[key] || '{}');
+		}
+	}
+}]);
 
 //the addClass modal's angular code:
-app.controller('addClassController', function($scope, $rootScope) {
+app.controller('addClassController', function($scope, $timeout, $rootScope) {
 	if(ionic.Platform.isIOS()){
 		//are you serious ios, do you think you're special?
 
@@ -92,6 +97,41 @@ app.controller('addClassController', function($scope, $rootScope) {
 	};
 
 	$rootScope.saveAddedClassData = function saveAddedClassData(){
-		console.log("ayy it works");
+		//console.log("ayy it works");
+		//console.log($scope.addClass.name);
+		//console.log($scope.addClass.sectionNumber);
+		//console.log($scope.defaultTerm);
+
+		if($scope.addClass.sectionNumber.toString().length == 5){
+			$scope.addClass.snType = "number";
+			$rootScope.classList.unshift({
+				name: $scope.addClass.name,
+				section: "Must Fetch",
+				number: $scope.addClass.sectionNumber,
+				schedule: "Must Fetch",
+				seats: "Must Fetch",
+				term: $scope.defaultTerm,
+				snType: $scope.addClass.snType
+			});
+		}
+		else{
+			$scope.addClass.snType = "section";
+			$rootScope.classList.unshift({
+				name: $scope.addClass.name,
+				section: $scope.addClass.sectionNumber,
+				number: "Must Fetch",
+				schedule: "Must Fetch",
+				seats: "Must Fetch",
+				term: $scope.defaultTerm,
+				snType: $scope.addClass.snType
+			});
+		}
+
+		$timeout(function(){
+			$scope.addClass.name = "";
+			$scope.addClass.sectionNumber = "";
+			$scope.addClass.snType = "";
+		});
+
 	}
 });

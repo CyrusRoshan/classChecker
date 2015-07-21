@@ -123,7 +123,7 @@
 										Selected Term
 									</div>
 									<select ng-model="defaultTerm">
-										<option ng-repeat="term in terms">{{term}}</option>
+										<option ng-repeat="term in terms" ng-model="addClass.term">{{term}}</option>
 									</select>
 								</label>
 							</div>
@@ -168,14 +168,14 @@
 						<div class="item item-divider">
 							Information:
 						</div>
-						<div class="item item-icon-left">
+						<a href="#" onclick="window.open('mailto:CyrusRoshan123@gmail.com', '_system', 'location=yes'); return false;" class="item item-icon-left">
 							<i class="icon ion-email"></i>
 							CyrusRoshan123@gmail.com
-						</div>
-						<div class="item item-icon-left">
+						</a>
+						<a href="#" onclick="window.open('https://github.com/CyrusRoshan', '_system', 'location=yes'); return false;" class="item item-icon-left">
 							<i class="icon ion-social-github"></i>
 							CyrusRoshan
-						</div>
+						</a>
 					</div>
 				</ion-content>
 			</ion-view>
