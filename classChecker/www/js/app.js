@@ -47,7 +47,7 @@ var app = angular.module('ionicApp', ['ionic'])
 
 })
 
-.controller('HomeTabCtrl', function($scope, $ionicModal, $rootScope) {
+.controller('HomeTabCtrl', function($scope, $ionicModal, $rootScope, $ionicPopup) {
 	//console.log('HomeTabCtrl');
 	formatAddClassButton();
 	$ionicModal.fromTemplateUrl('templates/addClassForm.html', {
@@ -70,15 +70,21 @@ var app = angular.module('ionicApp', ['ionic'])
 			$scope.modal.hide();
 		}
 		else{
-			alert("Please properly format your class section or class number");
+			var alertError = $ionicPopup.alert({
+				title: 'Error!',
+				template: 'Please properly format your class section or class number, as shown in the placeholder text and picture.'
+			});
+			alertError.then(function(){
+				//console.log('Error shown to user');
+			});
 		}
 	}
 
 });
 
 
-app.controller('classesCtrl', function($scope, $timeout) {
-	$scope.classList =
+app.controller('classesCtrl', function($scope, $timeout, $rootScope){
+	$rootScope.classList =
 		[
 		{name: "asdfsd", section: "section", number: 129329329, schedule: "thursdays n stuff", seats: "100/1000"}
 	];
@@ -88,7 +94,7 @@ app.controller('classesCtrl', function($scope, $timeout) {
 		//console.log('Refreshing!');
 		$timeout( function() {
 			//simulate async response
-			$scope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
+			$rootScope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
 
 			//Stop the ion-refresher from spinning
 			$scope.$broadcast('scroll.refreshComplete');

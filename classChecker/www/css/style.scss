@@ -336,6 +336,16 @@ ion-nav-view ion-view ion-content{
 	width: 50px;
 	//padding: 10px;
 }
+
+.popup{
+	border-radius: 7px !important;
+	.popup-body{
+		text-align: center;
+	}
+	button{
+		border-radius: 5px !important;
+	}
+}
 /*
 .platform-android{
 .addClassButton{
