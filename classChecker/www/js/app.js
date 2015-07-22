@@ -108,32 +108,84 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 	//uncomment the above line to clear data
 
 	$scope.tempClassList = $localstorage.getObject('classList');
-	console.log($scope.tempClassList.length);
+	//console.log($scope.tempClassList.length);
 	if($scope.tempClassList.length > 0){
-		console.log("A");
-		console.log($scope.tempClassList);
+		//console.log("A");
+		//console.log($scope.tempClassList);
 		$rootScope.classList = $scope.tempClassList;
 	}
 	else{
-		console.log("B");
-		console.log($scope.tempClassList);
+		//console.log("B");
+		//console.log($scope.tempClassList);
 		$rootScope.classList =
 			[
-			{name: "First Run", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats"}
+			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats"}
 		];
 	}
 
-	$scope.doRefresh = function() {
+	$rootScope.doRefresh = function() {
 
 		//console.log('Refreshing!');
 		$timeout( function() {
 			//simulate async response
-			$rootScope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
+			for(i=0; i<$rootScope.classList.length; i++){
+				if($rootScope.classList[i].section == "Must Fetch"){
+					console.log(i);
+					var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
+					var number = $rootScope.classList[i].number;
+					var term = $rootScope.classList[i].term.split(" ")[0];
+					if (term == "Fall"){
+						term = "f";
+					}
+					else if(term == "Spring"){
+						term = "s";
+					}
+					else if(term == "Summer"){
+						term = "u";
+					}
+
+					//console.log("asdfds");
+					//console.log(number);
+					//console.log(year);
+					//console.log(term);
+					//console.log('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?');
+
+					$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?') + '&callback=?', function(data){
+						var string = 'title="View details for section ';
+						data = data.contents;
+
+						//console.log(data.indexOf(string));
+						console.log(data.slice(data.indexOf(string) + string.length, data.indexOf(string) + string.length + 20).split('"')[0]);
+					});
+
+
+				}
+				else if($rootScope.classList[i].number == "Must Fetch"){
+					var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
+					var number = $rootScope.classList[i].number;
+					var term = $rootScope.classList[i].term.split(" ")[0].slice(2, 4);
+					if (term == "Fall"){
+						term = "f";
+					}
+					else if(term == "Spring"){
+						term = "s";
+					}
+					else if(term == "Summer"){
+						term = "u";
+					}
+
+					$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/clips/clip-section.zog?id=' + section + '/term_' + year + term + '?') + '&callback=?', function(data){
+						console.log(data.contents);
+					});
+				}
+			}
+
+			//$rootScope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
 
 			//Stop the ion-refresher from spinning
 			$scope.$broadcast('scroll.refreshComplete');
 
-		}, 1000);
+		}, 500);
 
 	};
 

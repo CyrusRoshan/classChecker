@@ -58,7 +58,7 @@
 				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
 				<a class="button icon icon-right ion-minus-round removeClassButton" ng-click="openModal()"></a>
 				<ion-content class="padding" ng-controller="classesCtrl">
-					<ion-refresher pulling-text="Manual Refresh" on-refresh="doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
+					<ion-refresher pulling-text="Manual Refresh" on-refresh="$root.doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
 					</ion-refresher>
 					<div ng-repeat="class in $root.classList" class="classStorage">
 						<div class="className">
