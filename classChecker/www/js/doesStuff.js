@@ -95,7 +95,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
 				term: $scope.defaultTerm,
-				snType: $scope.addClass.snType
+				urlAddon: "Must Fetch"
 			});
 		}
 		else{
@@ -107,7 +107,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
 				term: $scope.defaultTerm,
-				snType: $scope.addClass.snType
+				urlAddon: "Must Fetch"
 			});
 		}
 
@@ -115,6 +115,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 			$scope.addClass.name = "";
 			$scope.addClass.sectionNumber = "";
 			$scope.addClass.snType = "";
+			$scope.$apply();
 			$localstorage.setObject('classList', $rootScope.classList);
 			console.log($localstorage.getObject('classList'));
 		});
