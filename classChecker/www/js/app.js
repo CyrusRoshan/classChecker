@@ -119,7 +119,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		//console.log($scope.tempClassList);
 		$rootScope.classList =
 			[
-			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats"}
+			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats", lastUpdate: "Never"}
 		];
 	}
 
@@ -128,7 +128,9 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		//console.log('Refreshing!');
 		$timeout( function() {
 			//simulate async response
+			var data = "";
 			for(i=0; i<$rootScope.classList.length; i++){
+				data[i] = "";
 				if(($rootScope.classList[i].section == "Must Fetch") || ($rootScope.classList[i].number == "Must Fetch")){
 					if($rootScope.classList[i].section == "Must Fetch"){
 						console.log(i);
@@ -151,7 +153,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 						//console.log(term);
 						//console.log('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?');
 
-						//console.log(i);
+						console.log(i);
 						var index = i;
 						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?') + '&callback=?', function(data){
 							var i = index;
@@ -159,35 +161,32 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 
 							//console.log(i);
 							var string = 'title="View details for section ';
-							data = data.contents;
+							data[i] = data.contents;
 
 							//console.log(data.indexOf(string));
-							var urlAddon = data.slice(data.indexOf(string) + string.length, data.indexOf(string) + string.length + 20).split('"')[0];
+							var urlAddon = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 20).split('"')[0];
 
-							console.log(i);
-							console.log($rootScope.classList);
-							console.log($rootScope.classList[i]);
+							//console.log(i);
+							//console.log($rootScope.classList);
+							//console.log($rootScope.classList[i]);
 
 							$rootScope.classList[i].urlAddon = urlAddon;
 
 							$rootScope.classList[i].section = urlAddon.split(".")[0].slice(0, urlAddon.split(".")[0].length - 4).toUpperCase() + " " + urlAddon.split(".")[0].slice(urlAddon.split(".")[0].length - 4, urlAddon.split(".")[0].length) + "." + urlAddon.split(".")[1];
 
-							$rootScope.classList[i]
-
 							$localstorage.setObject('classList', $rootScope.classList);
-			console.log($localstorage.getObject('classList'));
+							//console.log($localstorage.getObject('classList'));
 
-							console.log($rootScope.classList);
+							//console.log($rootScope.classList);
 
 							$rootScope.$apply();
 						});
-
-
 					}
+
 					else if($rootScope.classList[i].number == "Must Fetch"){
 						var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
-						var number = $rootScope.classList[i].number;
-						var term = $rootScope.classList[i].term.split(" ")[0].slice(2, 4);
+						var section = $rootScope.classList[i].section.split(" ")[0].toLowerCase() + $rootScope.classList[i].section.split(" ")[1];
+						var term = $rootScope.classList[i].term.split(" ")[0];
 						if (term == "Fall"){
 							term = "f";
 						}
@@ -198,17 +197,91 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 							term = "u";
 						}
 
-						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/clips/clip-section.zog?id=' + section + '/term_' + year + term + '?') + '&callback=?', function(data){
-							console.log(data.contents);
+						var urlAddon = section + "." + year + term;
+						$rootScope.classList[i].urlAddon = urlAddon;
+
+						console.log(i);
+						var index = i;
+						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + section + "." + year + term) + '&callback=?', function(data){
+							var i = index;
+							//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
+
+							//console.log(i);
+							var string = '</a><br />';
+							//the above text happens in 3 locations, but luckily we only need the first one
+
+							data[i] = data.contents;
+
+							//console.log(data.indexOf(string));
+							var number = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 5);
+
+							$rootScope.classList[i].number = number;
+
+							$localstorage.setObject('classList', $rootScope.classList);
+							console.log($localstorage.getObject('classList'));
+
+							console.log($rootScope.classList);
+
+							$rootScope.$apply();
 						});
+						/*$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/clips/clip-section.zog?id=' + section + "." + year + term) + '&callback=?', function(data){
+							console.log(data.contents);
+						});*/
+						//turns out the above code won't work because whateverorigin has trouble accepting query strings
+						//alternative: use only the other url and fetch the part that shows the percentage filled
+						//then, display percentage filled as opposed to total seats.
 					}
 				}
+
+				var index = i;
+				console.log($rootScope.classList[i].urlAddon);
+				$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
+					var i = index;
+					//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
+
+
+					//console.log(i);
+					var string1 = 'transparent; " title="';
+					var string2 = '</a><br /></td><td>';
+
+					data[i] = data.contents;
+
+					console.log(data[i]);
+					//console.log(data.indexOf(string));
+
+
+					var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
+
+					var schedule = data[i].slice(data[i].indexOf(string2) + string2.length, data[i].indexOf(string2) + string2.length + 60).split('<br /><a href="')[0].replace("&nbsp;", " ").replace("&nbsp;", " ").replace(" : ", " ");
+
+					var lastUpdate = new Date().getMonth() + '/' + new Date().getDay() + '/' + new Date().getFullYear() + " " + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+
+					if(parseInt(seats.split("%")[0]) < 100){
+						var open = "open";
+					}
+
+					$rootScope.classList[i].schedule = schedule;
+					$rootScope.classList[i].seats = seats;
+					$rootScope.classList[i].lastUpdate = lastUpdate;
+					$rootScope.classList[i].open = open;
+
+					console.log(schedule + seats + lastUpdate + open);
+
+					$localstorage.setObject('classList', $rootScope.classList);
+					console.log($localstorage.getObject('classList'));
+
+					console.log($rootScope.classList);
+
+					$rootScope.$apply();
+				});
+
+				if(i >= $rootScope.classList.length){
+					$scope.$broadcast('scroll.refreshComplete');
+				}
+
 			}
 
-			//$rootScope.classList.unshift({name: Math.floor(Math.random() * 1000), section: Math.floor(Math.random() * 1000), number: Math.floor(Math.random() * 1000), schedule: Math.floor(Math.random() * 1000), seats: Math.floor(Math.random() * 1000)});
-
 			//Stop the ion-refresher from spinning
-			$scope.$broadcast('scroll.refreshComplete');
 
 		}, 500);
 

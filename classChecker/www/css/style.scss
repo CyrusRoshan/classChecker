@@ -219,7 +219,7 @@ ion-nav-view ion-view ion-content{
 		font-weight: 500;
 		width: 100%;
 		font-size: 30px;
-		margin-bottom: 10px;
+		margin-bottom: 15px;
 		text-align: center;
 	}
 	.classSection{
@@ -238,8 +238,13 @@ ion-nav-view ion-view ion-content{
 		font-weight: 400;
 		color: #ffff00;
 	}
+	.lastUpdate{
+		display: inline;
+		//font-weight: 300;
+		font-size: 16px;
+	}
 	.listRow{
-		margin-top: 10px;
+		margin-top: 7px;
 		font-size: 23px;
 	}
 }

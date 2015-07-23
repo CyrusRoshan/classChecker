@@ -66,11 +66,11 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 			//console.log("A");
 			return "error";
 		}
-		if(($scope.addClass.sectionNumber.toString().length == 5) && (parseInt($scope.addClass.sectionNumber).toString().length == 5)){
+		else if(($scope.addClass.sectionNumber.toString().length == 5) && (parseInt($scope.addClass.sectionNumber).toString().length == 5)){
 			//console.log("B");
 			return "";
 		}
-		else if((isNaN(parseInt($scope.addClass.sectionNumber.split(" ")[0])) === true) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && (parseInt($scope.addClass.sectionNumber.split(" ")[1].split(".")[0]).toString().length == 4)  && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[1].length == 3)){
+		else if((isNaN(parseInt($scope.addClass.sectionNumber.split(" ")[0])) === true) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && (parseInt($scope.addClass.sectionNumber.split(" ")[1].split(".")[0]).toString().length == 4)  && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[0].length == 4) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[1].length == 3) && ($scope.addClass.sectionNumber.split(" ")[2] === undefined) && ($scope.addClass.sectionNumber.split(" ")[1].split(".")[2] === undefined)){
 			//console.log("C");
 			return "";
 		}
@@ -85,7 +85,11 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 		//console.log($scope.addClass.name);
 		//console.log($scope.addClass.sectionNumber);
 		//console.log($scope.defaultTerm);
-
+		console.log($rootScope.classList[$rootScope.classList.length - 1]);
+		if($rootScope.classList[$rootScope.classList.length - 1].name == "Example Class"){
+			console.log($rootScope.classList);
+			$rootScope.classList.shift();
+		}
 		if($scope.addClass.sectionNumber.toString().length == 5){
 			$scope.addClass.snType = "number";
 			$rootScope.classList.unshift({
@@ -95,19 +99,23 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
 				term: $scope.defaultTerm,
-				urlAddon: "Must Fetch"
+				urlAddon: "Must Fetch",
+				lastUpdate: "Never",
+				open: "Must Fetch"
 			});
 		}
 		else{
 			$scope.addClass.snType = "section";
 			$rootScope.classList.unshift({
 				name: $scope.addClass.name,
-				section: $scope.addClass.sectionNumber,
+				section: $scope.addClass.sectionNumber.toUpperCase(),
 				number: "Must Fetch",
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
 				term: $scope.defaultTerm,
-				urlAddon: "Must Fetch"
+				urlAddon: "Must Fetch",
+				lastUpdate: "Never",
+				open: "Must Fetch"
 			});
 		}
 
@@ -117,7 +125,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 			$scope.addClass.snType = "";
 			$scope.$apply();
 			$localstorage.setObject('classList', $rootScope.classList);
-			console.log($localstorage.getObject('classList'));
+			//console.log($localstorage.getObject('classList'));
 		});
 
 	}
