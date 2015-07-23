@@ -81,13 +81,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 	};
 
 	$rootScope.saveAddedClassData = function saveAddedClassData(){
-		//console.log("ayy it works");
-		//console.log($scope.addClass.name);
-		//console.log($scope.addClass.sectionNumber);
-		//console.log($scope.defaultTerm);
-		console.log($rootScope.classList[$rootScope.classList.length - 1]);
 		if($rootScope.classList[$rootScope.classList.length - 1].name == "Example Class"){
-			console.log($rootScope.classList);
 			$rootScope.classList.shift();
 		}
 		if($scope.addClass.sectionNumber.toString().length == 5){

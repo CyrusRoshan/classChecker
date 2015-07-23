@@ -129,7 +129,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		$timeout( function() {
 			//simulate async response
 			var data = "";
-			for(i=0; i<$rootScope.classList.length; i++){
+			for(i=0; i<$rootScope.classList.length;i=i){
 				data[i] = "";
 				if(($rootScope.classList[i].section == "Must Fetch") || ($rootScope.classList[i].number == "Must Fetch")){
 					if($rootScope.classList[i].section == "Must Fetch"){
@@ -153,32 +153,23 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 						//console.log(term);
 						//console.log('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?');
 
-						console.log(i);
 						var index = i;
+						console.log("prea" + i);
 						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + number + '/term_' + year + term + '?') + '&callback=?', function(data){
 							var i = index;
+							console.log("a" + i);
 							//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
 
-							//console.log(i);
 							var string = 'title="View details for section ';
 							data[i] = data.contents;
 
-							//console.log(data.indexOf(string));
 							var urlAddon = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 20).split('"')[0];
-
-							//console.log(i);
-							//console.log($rootScope.classList);
-							//console.log($rootScope.classList[i]);
 
 							$rootScope.classList[i].urlAddon = urlAddon;
 
 							$rootScope.classList[i].section = urlAddon.split(".")[0].slice(0, urlAddon.split(".")[0].length - 4).toUpperCase() + " " + urlAddon.split(".")[0].slice(urlAddon.split(".")[0].length - 4, urlAddon.split(".")[0].length) + "." + urlAddon.split(".")[1];
 
 							$localstorage.setObject('classList', $rootScope.classList);
-							//console.log($localstorage.getObject('classList'));
-
-							//console.log($rootScope.classList);
-
 							$rootScope.$apply();
 						});
 					}
@@ -200,28 +191,23 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 						var urlAddon = section + "." + year + term;
 						$rootScope.classList[i].urlAddon = urlAddon;
 
-						console.log(i);
 						var index = i;
+						console.log("preb" + i);
 						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + section + "." + year + term) + '&callback=?', function(data){
 							var i = index;
+							console.log("b" + i);
 							//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
 
-							//console.log(i);
 							var string = '</a><br />';
 							//the above text happens in 3 locations, but luckily we only need the first one
 
 							data[i] = data.contents;
 
-							//console.log(data.indexOf(string));
 							var number = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 5);
 
 							$rootScope.classList[i].number = number;
 
 							$localstorage.setObject('classList', $rootScope.classList);
-							console.log($localstorage.getObject('classList'));
-
-							console.log($rootScope.classList);
-
 							$rootScope.$apply();
 						});
 						/*$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/clips/clip-section.zog?id=' + section + "." + year + term) + '&callback=?', function(data){
@@ -234,21 +220,17 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 				}
 
 				var index = i;
+				console.log("pre c" + i);
 				console.log($rootScope.classList[i].urlAddon);
 				$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
 					var i = index;
+					console.log("c" + i);
 					//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
 
-
-					//console.log(i);
 					var string1 = 'transparent; " title="';
 					var string2 = '</a><br /></td><td>';
 
 					data[i] = data.contents;
-
-					console.log(data[i]);
-					//console.log(data.indexOf(string));
-
 
 					var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
 
@@ -268,14 +250,11 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 					console.log(schedule + seats + lastUpdate + open);
 
 					$localstorage.setObject('classList', $rootScope.classList);
-					console.log($localstorage.getObject('classList'));
-
-					console.log($rootScope.classList);
-
 					$rootScope.$apply();
 				});
 
-				if(i >= $rootScope.classList.length){
+				i++;
+				if(i > $rootScope.classList.length){
 					$scope.$broadcast('scroll.refreshComplete');
 				}
 
