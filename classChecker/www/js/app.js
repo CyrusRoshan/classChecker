@@ -371,9 +371,16 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 			for(i=0; i<$rootScope.classList.length;i=i){
 				data[i] = "";
 
-				$scope.initialDataCheck();
-				$scope.getRepeatData();
-				$scope.iterate();
+				if($rootScope.classList[i].name == "Example Class"){
+					//do nothing
+					i++;
+					$rootScope.finishRefresh();
+				}
+				else{
+					$scope.initialDataCheck();
+					$scope.getRepeatData();
+					$scope.iterate();
+				}
 			}
 			//$rootScope.finishRefresh();
 
