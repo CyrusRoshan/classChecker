@@ -130,6 +130,8 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 });
 
 app.controller('masterController', function($timeout, $rootScope, $localstorage, $ionicPopup) {
+	//kind of redundant, yeah.
+
 	$rootScope.clearClasses = function() {
 		var confirmDelete = $ionicPopup.confirm({
 			title: 'Delete ALL Classes?',
@@ -152,4 +154,25 @@ app.controller('masterController', function($timeout, $rootScope, $localstorage,
 			}
 		});
 	}
+
+	$rootScope.showDeleteClass = "";
+	$rootScope.leftButtonIcon = "ion-minus-round";
+
+	$rootScope.toggleClassRemoval = function(){
+		if($rootScope.leftButtonIcon == "ion-minus-round"){
+			$rootScope.leftButtonIcon = "ion-close-round";
+			$rootScope.showDeleteClass = "showDeleteClass";
+
+		}
+		else{
+			$rootScope.leftButtonIcon = "ion-minus-round";
+			$rootScope.showDeleteClass = "";
+		}
+	}
+
+	$rootScope.deleteThisClass = function($index){
+		$rootScope.classList.splice($index, 1);
+		$localstorage.setObject('classList', $rootScope.classList);
+	}
+
 });

@@ -466,11 +466,11 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 					//$scope.iterate($scope.getRepeatData($scope.initialDataCheck()));
 
 					$.when( $scope.initialDataCheck() ).done(function() {
-						console.log("checked initial data");
+						//console.log("checked initial data");
 						$.when( $scope.getRepeatData() ).done(function() {
-							console.log("got repeat data");
+						//	console.log("got repeat data");
 							$.when( $scope.iterate() ).done(function() {
-								console.log("Iterated");
+						//		console.log("Iterated");
 							});
 						});
 					});

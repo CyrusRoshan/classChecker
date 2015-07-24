@@ -56,11 +56,15 @@
 		<script id="templates/home.html" type="text/ng-template">
 			<ion-view view-title="Classes">
 				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
-				<a class="button icon icon-right ion-minus-round removeClassButton" ng-click="openModal()"></a>
+				<a class="button icon icon-right removeClassButton" ng-click="$root.toggleClassRemoval()" ng-class="$root.leftButtonIcon"></a>
 				<ion-content class="padding" ng-controller="classesCtrl">
 					<ion-refresher pulling-text="" on-refresh="$root.doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
 					</ion-refresher>
 					<div ng-repeat="class in $root.classList" class="classStorage" ng-class="class.open">
+						<div class="deleteClass" ng-class="$root.showDeleteClass">
+							<button class="icon-left ion-trash-b deleteButton" ng-click="$root.deleteThisClass($index)">
+							</button>
+						</div>
 						<div class="className">
 							{{class.name}}
 						</div>

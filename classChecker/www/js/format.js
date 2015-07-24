@@ -53,5 +53,5 @@ function formatAddClassButton(){
 		}
 	}
 
-	$("<style>.addClassButton::before{font-size: " + $('.addClassButton').height() / 2 + "px !important}</style>").appendTo("head");
+	$("<style>.addClassButton::before,.removeClassButton::before{font-size: " + $('.addClassButton').height() / 2 + "px !important}</style>").appendTo("head");
 }
