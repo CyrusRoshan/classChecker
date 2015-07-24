@@ -238,6 +238,14 @@ ion-nav-view ion-view ion-content{
 		background-color: #0A8E11;
 		border: 3px solid #00FD0D;
 	}
+	&.closed{
+		background-color: #8e0a0a;
+		border: 3px solid #fd0000;
+	}
+	&.nonexistent{
+		background-color: #000000;
+		border: 3px solid #e0fd00;
+	}
 	.className{
 		font-weight: 500;
 		width: 100%;
@@ -329,9 +337,9 @@ ion-nav-view ion-view ion-content{
 .scroll-refresher{
 	top: -80px;
 	background-color: rgb(255, 182, 99);
-	margin-left: 30%;
-	margin-right: 30%;
-	border-radius: 20px;
+	margin-left: 35%;
+	margin-right: 35%;
+	border-radius: 15px;
 	border: 2px solid white;
 	padding-top: 15px;
 }

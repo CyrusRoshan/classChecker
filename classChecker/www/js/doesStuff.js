@@ -44,17 +44,20 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 	var decimalDM = currentMonth + currentDay/10;
 	if((decimalDM >= 11.01) || (decimalDM < 3.17)){
 		//must be Spring registration time
-		$scope.defaultTerm = "Spring " + currentYear.toString();
+		$scope.enteredTerm = "Spring " + currentYear.toString();
+		$scope.defaultTerm = $scope.enteredTerm;
 		$scope.terms = ["Fall " + lastYear, $scope.defaultTerm, "Summer " + currentYear];
 	}
 	else if((decimalDM >= 3.17) && (decimalDM < 8.12)){
 		//must be Spring registration time
-		$scope.defaultTerm = "Summer " + currentYear.toString();
+		$scope.enteredTerm = "Summer " + currentYear.toString();
+		$scope.defaultTerm = $scope.enteredTerm;
 		$scope.terms = ["Spring " + currentYear, $scope.defaultTerm, "Fall " + nextYear];
 	}
 	else if((decimalDM >= 8.12) && (decimalDM < 11.01)){
 		//must be Spring registration time
-		$scope.defaultTerm = "Fall " + currentYear.toString();
+		$scope.enteredTerm = "Fall " + currentYear.toString();
+		$scope.defaultTerm = $scope.enteredTerm;
 		$scope.terms = ["Summer " + currentYear, $scope.defaultTerm, "Spring " + nextYear];
 	}
 
@@ -92,7 +95,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 				number: $scope.addClass.sectionNumber,
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
-				term: $scope.defaultTerm,
+				term: $scope.enteredTerm,
 				urlAddon: "Must Fetch",
 				lastUpdate: "Never",
 				open: "Must Fetch"
@@ -106,7 +109,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 				number: "Must Fetch",
 				schedule: "Must Fetch",
 				seats: "Must Fetch",
-				term: $scope.defaultTerm,
+				term: $scope.enteredTerm,
 				urlAddon: "Must Fetch",
 				lastUpdate: "Never",
 				open: "Must Fetch"
@@ -117,6 +120,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 			$scope.addClass.name = "";
 			$scope.addClass.sectionNumber = "";
 			$scope.addClass.snType = "";
+			$scope.enteredTerm = $scope.defaultTerm;
 			$scope.$apply();
 			$localstorage.setObject('classList', $rootScope.classList);
 			//console.log($localstorage.getObject('classList'));
@@ -139,7 +143,7 @@ app.controller('masterController', function($timeout, $rootScope, $localstorage,
 			if(res) {
 				$rootScope.classList =
 					[
-					{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Percent Filled", lastUpdate: "Never"}
+					{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", term: "Term", seats: "Percent Filled", lastUpdate: "Never"}
 				];
 				$localstorage.setObject('classList', {});
 			} else {

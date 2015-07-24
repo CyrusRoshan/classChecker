@@ -58,7 +58,7 @@
 				<a class="button icon icon-right ion-plus-round addClassButton" ng-click="openModal()"></a>
 				<a class="button icon icon-right ion-minus-round removeClassButton" ng-click="openModal()"></a>
 				<ion-content class="padding" ng-controller="classesCtrl">
-					<ion-refresher pulling-text="Manual Refresh" on-refresh="$root.doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
+					<ion-refresher pulling-text="" on-refresh="$root.doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
 					</ion-refresher>
 					<div ng-repeat="class in $root.classList" class="classStorage" ng-class="class.open">
 						<div class="className">
@@ -80,6 +80,16 @@
 						<div class="listRow">
 							<div class="classSeats">
 								Seats: {{class.seats}}
+							</div>
+						</div>
+						<div class="listRow">
+							<div class="classTerm">
+								Term: {{class.term}}
+							</div>
+						</div>
+						<div class="listRow">
+							<div class="classError">
+								Error: {{class.classError}}
 							</div>
 						</div>
 						<div class="listRow">

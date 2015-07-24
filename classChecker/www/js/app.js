@@ -49,14 +49,12 @@ var utilities = angular.module('ionic.utils', [])
 })
 
 .controller('HomeTabCtrl', function($scope, $ionicModal, $rootScope, $ionicPopup) {
-	//console.log('HomeTabCtrl');
 	formatAddClassButton();
 	$ionicModal.fromTemplateUrl('templates/addClassForm.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function(modal) {
 		$scope.modal = modal;
-		//console.log(modal);
 	});
 	$scope.openModal = function(){
 		$scope.modal.show();
@@ -65,7 +63,6 @@ var utilities = angular.module('ionic.utils', [])
 		$scope.modal.hide();
 	}
 	$scope.addClass = function(){
-		//console.log($rootScope.error());
 		if($rootScope.error() == ""){
 			$rootScope.saveAddedClassData();
 			$scope.modal.hide();
@@ -76,7 +73,6 @@ var utilities = angular.module('ionic.utils', [])
 				template: 'Please properly format your class section or class number, as shown in the placeholder text and picture.'
 			});
 			alertError.then(function(){
-				//console.log('Error shown to user');
 			});
 		}
 	}
@@ -108,18 +104,16 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 	//uncomment the above line to clear data
 
 	$scope.tempClassList = $localstorage.getObject('classList');
-	//console.log($scope.tempClassList.length);
 	if($scope.tempClassList.length > 0){
-		//console.log("A");
-		//console.log($scope.tempClassList);
 		$rootScope.classList = $scope.tempClassList;
+		for(i=1;i<=$scope.tempClassList;i++){
+
+		}
 	}
 	else{
-		//console.log("B");
-		//console.log($scope.tempClassList);
 		$rootScope.classList =
 			[
-			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Percent Filled", lastUpdate: "Never"}
+			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", term: "Term", seats: "Percent Filled", lastUpdate: "Never"}
 		];
 	}
 
@@ -147,14 +141,33 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 				var string = 'title="View details for section ';
 				data[i] = data.contents;
 
-				var urlAddon = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 20).split('"')[0];
+				if (data[i].indexOf(string) != -1){
 
-				$rootScope.classList[i].urlAddon = urlAddon;
+					var urlAddon = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 20).split('"')[0];
 
-				$rootScope.classList[i].section = urlAddon.split(".")[0].slice(0, urlAddon.split(".")[0].length - 4).toUpperCase() + " " + urlAddon.split(".")[0].slice(urlAddon.split(".")[0].length - 4, urlAddon.split(".")[0].length) + "." + urlAddon.split(".")[1];
+					$rootScope.classList[i].urlAddon = urlAddon;
 
-				$localstorage.setObject('classList', $rootScope.classList);
-				$rootScope.$apply();
+					$rootScope.classList[i].section = urlAddon.split(".")[0].slice(0, urlAddon.split(".")[0].length - 4).toUpperCase() + " " + urlAddon.split(".")[0].slice(urlAddon.split(".")[0].length - 4, urlAddon.split(".")[0].length) + "." + urlAddon.split(".")[1];
+
+					$localstorage.setObject('classList', $rootScope.classList);
+					$rootScope.$apply();
+				}
+				else{
+					$rootScope.classList[i].urlAddon = 'Error';
+					$rootScope.classList[i].classError = true;
+					$rootScope.classList[i].schedule = 'Class does not exist.';
+					$rootScope.classList[i].seats = 'Error';
+					$rootScope.classList[i].section = 'Error';
+					$rootScope.classList[i].lastUpdate = 'Class does not exist.';
+					$rootScope.classList[i].open = 'nonexistent';
+
+					$localstorage.setObject('classList', $rootScope.classList);
+					$rootScope.$apply();
+
+					if(( (i) >= $rootScope.classList.length) && ($rootScope.classList[i].classError === true)){
+						$rootScope.finishRefresh();
+					}
+				}
 			});
 		}
 
@@ -183,15 +196,32 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 
 				var string = '</a><br />';
 				//the above text happens in 3 locations, but luckily we only need the first one
-
 				data[i] = data.contents;
 
-				var number = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 5);
+				if (data[i].indexOf(string) != -1){
+					var number = data[i].slice(data[i].indexOf(string) + string.length, data[i].indexOf(string) + string.length + 5);
 
-				$rootScope.classList[i].number = number;
+					$rootScope.classList[i].number = number;
 
-				$localstorage.setObject('classList', $rootScope.classList);
-				$rootScope.$apply();
+					$localstorage.setObject('classList', $rootScope.classList);
+					$rootScope.$apply();
+				}
+				else{
+					$rootScope.classList[i].urlAddon = 'Error';
+					$rootScope.classList[i].classError = true;
+					$rootScope.classList[i].schedule = 'Class does not exist.';
+					$rootScope.classList[i].seats = 'Error';
+					$rootScope.classList[i].number = 'Error';
+					$rootScope.classList[i].lastUpdate = 'Class does not exist.';
+					$rootScope.classList[i].open = 'nonexistent';
+
+					$localstorage.setObject('classList', $rootScope.classList);
+					$rootScope.$apply();
+
+					if(( (i) >= $rootScope.classList.length) && ($rootScope.classList[i].classError === true)){
+						$rootScope.finishRefresh();
+					}
+				}
 			});
 			/*$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/clips/clip-section.zog?id=' + section + "." + year + term) + '&callback=?', function(data){
 							console.log(data.contents);
@@ -202,87 +232,168 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		}
 
 		$scope.initialDataCheck = function initialDataCheck() {
-			if(($rootScope.classList[i].section == "Must Fetch") || ($rootScope.classList[i].number == "Must Fetch")){
-				if($rootScope.classList[i].section == "Must Fetch"){
-					$scope.sectionDataFetch();
-				}
+			if($rootScope.classList[i].classError != true){
+				if(($rootScope.classList[i].section == "Must Fetch") || ($rootScope.classList[i].number == "Must Fetch")){
+					if($rootScope.classList[i].section == "Must Fetch"){
+						$scope.sectionDataFetch();
+					}
 
-				else if($rootScope.classList[i].number == "Must Fetch"){
-					$scope.numberDataFetch();
+					else if($rootScope.classList[i].number == "Must Fetch"){
+						$scope.numberDataFetch();
+					}
 				}
 			}
 		}
 
 		$scope.getRepeatData = function getRepeatData(){
-			if($rootScope.classList[i].urlAddon == "Must Fetch"){
-				if($rootScope.classList[i].number == "Must Fetch"){
-					var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
-					var section = $rootScope.classList[i].section.split(" ")[0].toLowerCase() + $rootScope.classList[i].section.split(" ")[1];
-					var term = $rootScope.classList[i].term.split(" ")[0];
-					if (term == "Fall"){
-						term = "f";
-					}
-					else if(term == "Spring"){
-						term = "s";
-					}
-					else if(term == "Summer"){
-						term = "u";
-					}
-
-					var urlAddon = section + "." + year + term;
-					$rootScope.classList[i].urlAddon = urlAddon;
-
-					var index = i;
-					$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
-						var i = index;
-						//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
-
-						var string1 = 'transparent; " title="';
-						var string2 = '</a><br /></td><td>';
-
-						data[i] = data.contents.toString();
-
-						var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
-
-						var schedule = data[i].slice(data[i].indexOf(string2) + string2.length, data[i].indexOf(string2) + string2.length + 60).split('<br /><a href="')[0].replace("&nbsp;", " ").replace("&nbsp;", " ").replace(" : ", " ");
-
-						var lastUpdate = new Date().getMonth() + '/' + new Date().getDay() + '/' + new Date().getFullYear() + " " + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
-
-						if(parseInt(seats.split("%")[0]) < 100){
-							var open = "open";
+			if($rootScope.classList[i].classError != true){
+				if($rootScope.classList[i].urlAddon == "Must Fetch"){
+					if($rootScope.classList[i].number == "Must Fetch"){
+						var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
+						var section = $rootScope.classList[i].section.split(" ")[0].toLowerCase() + $rootScope.classList[i].section.split(" ")[1];
+						var term = $rootScope.classList[i].term.split(" ")[0];
+						if (term == "Fall"){
+							term = "f";
+						}
+						else if(term == "Spring"){
+							term = "s";
+						}
+						else if(term == "Summer"){
+							term = "u";
 						}
 
-						$rootScope.classList[i].schedule = schedule;
-						$rootScope.classList[i].seats = seats;
-						$rootScope.classList[i].lastUpdate = lastUpdate;
-						$rootScope.classList[i].open = open;
+						var urlAddon = section + "." + year + term;
+						$rootScope.classList[i].urlAddon = urlAddon;
 
-						$localstorage.setObject('classList', $rootScope.classList);
-						$rootScope.$apply();
+						var index = i;
+						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
+							var i = index;
+							//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
 
-						if(i >= $rootScope.classList.length - 1){
-							$rootScope.finishRefresh();
+							var string1 = 'transparent; " title="';
+							var string2 = '</a><br /></td><td>';
+
+							data[i] = data.contents.toString();
+
+							if (data[i].indexOf(string1) != -1){
+								var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
+
+								var schedule = data[i].slice(data[i].indexOf(string2) + string2.length, data[i].indexOf(string2) + string2.length + 60).split('<br /><a href="')[0].replace("&nbsp;", " ").replace("&nbsp;", " ").replace(" : ", " ");
+
+								var lastUpdate = new Date().getMonth() + '/' + new Date().getDay() + '/' + new Date().getFullYear() + " " + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+
+								if(parseInt(seats.split("%")[0]) < 100){
+									var open = "open";
+								}
+								else{
+									var open = "closed";
+								}
+
+								$rootScope.classList[i].schedule = schedule;
+								$rootScope.classList[i].seats = seats;
+								$rootScope.classList[i].lastUpdate = lastUpdate;
+								$rootScope.classList[i].open = open;
+
+								$localstorage.setObject('classList', $rootScope.classList);
+								$rootScope.$apply();
+
+								if(i >= $rootScope.classList.length - 1){
+									$rootScope.finishRefresh();
+								}
+
+							}
+							else{
+								$rootScope.classList[i].urlAddon = 'Error';
+								$rootScope.classList[i].classError = true;
+								$rootScope.classList[i].schedule = 'Class does not exist.';
+								$rootScope.classList[i].seats = 'Error';
+								$rootScope.classList[i].section = 'Error';
+								$rootScope.classList[i].lastUpdate = 'Class does not exist.';
+								$rootScope.classList[i].open = 'nonexistent';
+
+								$localstorage.setObject('classList', $rootScope.classList);
+								$rootScope.$apply();
+
+								if(( (i) >= $rootScope.classList.length) && ($rootScope.classList[i].classError === true)){
+									$rootScope.finishRefresh();
+								}
+							}
+						});
+
+					}
+					else{
+						var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
+						var number = $rootScope.classList[i].number;
+						var term = $rootScope.classList[i].term.split(" ")[0];
+						if (term == "Fall"){
+							term = "f";
 						}
-					});
+						else if(term == "Spring"){
+							term = "s";
+						}
+						else if(term == "Summer"){
+							term = "u";
+						}
 
+						var urlAddon = number + "/" + year + term;
+						$rootScope.classList[i].urlAddon = urlAddon;
+
+						var index = i;
+						$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
+							var i = index;
+							//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
+
+							var string1 = 'transparent; " title="';
+							var string2 = '</a><br /></td><td>';
+
+							data[i] = data.contents.toString();
+
+							if (data[i].indexOf(string1) != -1){
+								var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
+
+								var schedule = data[i].slice(data[i].indexOf(string2) + string2.length, data[i].indexOf(string2) + string2.length + 60).split('<br /><a href="')[0].replace("&nbsp;", " ").replace("&nbsp;", " ").replace(" : ", " ");
+
+								var lastUpdate = new Date().getMonth() + '/' + new Date().getDay() + '/' + new Date().getFullYear() + " " + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+
+								if(parseInt(seats.split("%")[0]) < 100){
+									var open = "open";
+								}
+								else{
+									var open = "closed";
+								}
+
+								$rootScope.classList[i].schedule = schedule;
+								$rootScope.classList[i].seats = seats;
+								$rootScope.classList[i].lastUpdate = lastUpdate;
+								$rootScope.classList[i].open = open;
+
+								$localstorage.setObject('classList', $rootScope.classList);
+								$rootScope.$apply();
+
+								if(i >= $rootScope.classList.length - 1){
+									$rootScope.finishRefresh();
+								}
+							}
+							else{
+								$rootScope.classList[i].urlAddon = 'Error';
+								$rootScope.classList[i].classError = true;
+								$rootScope.classList[i].schedule = 'Class does not exist.';
+								$rootScope.classList[i].seats = 'Error';
+								$rootScope.classList[i].section = 'Error';
+								$rootScope.classList[i].lastUpdate = 'Class does not exist.';
+								$rootScope.classList[i].open = 'nonexistent';
+
+								$localstorage.setObject('classList', $rootScope.classList);
+								$rootScope.$apply();
+
+								if(( (i) >= $rootScope.classList.length) && ($rootScope.classList[i].classError === true)){
+									$rootScope.finishRefresh();
+								}
+							}
+						});
+					}
 				}
 				else{
-					var year = $rootScope.classList[i].term.split(" ")[1].slice(2, 4);
-					var number = $rootScope.classList[i].number;
-					var term = $rootScope.classList[i].term.split(" ")[0];
-					if (term == "Fall"){
-						term = "f";
-					}
-					else if(term == "Spring"){
-						term = "s";
-					}
-					else if(term == "Summer"){
-						term = "u";
-					}
-
-					var urlAddon = number + "/" + year + term;
-					$rootScope.classList[i].urlAddon = urlAddon;
-
 					var index = i;
 					$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
 						var i = index;
@@ -302,6 +413,9 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 						if(parseInt(seats.split("%")[0]) < 100){
 							var open = "open";
 						}
+						else{
+							var open = "closed";
+						}
 
 						$rootScope.classList[i].schedule = schedule;
 						$rootScope.classList[i].seats = seats;
@@ -316,70 +430,50 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 						}
 					});
 				}
-			}
-			else{
-				var index = i;
-				$.getJSON('http://whateverorigin.org/get?url=' + encodeURIComponent('http://coursebook.utdallas.edu/' + $rootScope.classList[i].urlAddon) + '&callback=?', function(data){
-					var i = index;
-					//for some reason the above function changes i to 2 when i is 0. Haven't tested for other values, but the above line should fix it.
-
-					var string1 = 'transparent; " title="';
-					var string2 = '</a><br /></td><td>';
-
-					data[i] = data.contents.toString();
-
-					var seats = data[i].slice(data[i].indexOf(string1) + string1.length, data[i].indexOf(string1) + string1.length + 15).split('"')[0];
-
-					var schedule = data[i].slice(data[i].indexOf(string2) + string2.length, data[i].indexOf(string2) + string2.length + 60).split('<br /><a href="')[0].replace("&nbsp;", " ").replace("&nbsp;", " ").replace(" : ", " ");
-
-					var lastUpdate = new Date().getMonth() + '/' + new Date().getDay() + '/' + new Date().getFullYear() + " " + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
-
-					if(parseInt(seats.split("%")[0]) < 100){
-						var open = "open";
-					}
-
-					$rootScope.classList[i].schedule = schedule;
-					$rootScope.classList[i].seats = seats;
-					$rootScope.classList[i].lastUpdate = lastUpdate;
-					$rootScope.classList[i].open = open;
-
-					$localstorage.setObject('classList', $rootScope.classList);
-					$rootScope.$apply();
-
-					if(i >= $rootScope.classList.length - 1){
-						$rootScope.finishRefresh();
-					}
-				});
 			}
 		}
 
 		$scope.iterate = function iterate(){
-			i++;
-			if(i >= $rootScope.classList.length){
-				//$rootScope.finishRefresh();
+			if(( (i) >= $rootScope.classList.length) && ($rootScope.classList[i].classError === true)){
+				$rootScope.finishRefresh();
 			}
+			else if( i>= $rootScope.classList.length){
+				$rootScope.finishRefresh();
+			}
+			//i++;
 		}
 
 		$rootScope.finishRefresh = function finishRefresh(){
 			$scope.$broadcast('scroll.refreshComplete');
 		}
 
-		//console.log('Refreshing!');
 		$timeout( function() {
-			//simulate async response
+
 			var data = "";
-			for(i=0; i<$rootScope.classList.length;i=i){
+			for(i=0; i<$rootScope.classList.length;i++){
 				data[i] = "";
 
 				if($rootScope.classList[i].name == "Example Class"){
 					//do nothing
-					i++;
+					//i++;
 					$rootScope.finishRefresh();
 				}
 				else{
-					$scope.initialDataCheck();
-					$scope.getRepeatData();
-					$scope.iterate();
+					//$scope.initialDataCheck();
+					//$scope.getRepeatData();
+					//$scope.iterate();
+
+					//$scope.iterate($scope.getRepeatData($scope.initialDataCheck()));
+
+					$.when( $scope.initialDataCheck() ).done(function() {
+						console.log("checked initial data");
+						$.when( $scope.getRepeatData() ).done(function() {
+							console.log("got repeat data");
+							$.when( $scope.iterate() ).done(function() {
+								console.log("Iterated");
+							});
+						});
+					});
 				}
 			}
 			//$rootScope.finishRefresh();
