@@ -119,7 +119,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		//console.log($scope.tempClassList);
 		$rootScope.classList =
 			[
-			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Seats/Seats", lastUpdate: "Never"}
+			{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Percent Filled", lastUpdate: "Never"}
 		];
 	}
 
@@ -356,7 +356,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 		$scope.iterate = function iterate(){
 			i++;
 			if(i >= $rootScope.classList.length){
-				$rootScope.finishRefresh();
+				//$rootScope.finishRefresh();
 			}
 		}
 
@@ -375,6 +375,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 				$scope.getRepeatData();
 				$scope.iterate();
 			}
+			//$rootScope.finishRefresh();
 
 		}, 500);
 

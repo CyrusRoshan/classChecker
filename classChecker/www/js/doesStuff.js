@@ -123,18 +123,28 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 		});
 
 	}
+});
 
+app.controller('masterController', function($timeout, $rootScope, $localstorage, $ionicPopup) {
 	$rootScope.clearClasses = function() {
-		console.log("ASDFASSDFASD");
 		var confirmDelete = $ionicPopup.confirm({
 			title: 'Delete ALL Classes?',
-			template: 'Are you sure you want to delete all classes? This is irreversible.'
+			template: 'Are you sure you want to delete all classes? This is irreversible.',
+			cancelText: 'Cancel', // String (default: 'Cancel'). The text of the Cancel button.
+			cancelType: 'button-default', // String (default: 'button-default'). The type of the Cancel button.
+			okText: 'Delete!', // String (default: 'OK'). The text of the OK button.
+			okType: 'button-assertive', // String (default: 'button-positive'). The type of the OK button.
 		});
-		confirmPopup.then(function(res) {
+		confirmDelete.then(function(res) {
 			if(res) {
+				$rootScope.classList =
+					[
+					{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", seats: "Percent Filled", lastUpdate: "Never"}
+				];
 				$localstorage.setObject('classList', {});
 			} else {
-
+				console.log("NOOOOO");
+				console.log(res);
 			}
 		});
 	}
