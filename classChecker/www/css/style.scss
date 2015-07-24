@@ -71,9 +71,28 @@ ion-nav-view ion-view ion-content{
 	border-radius: 30px;
 	border: 2px solid rgb(255, 236, 214);
 	margin-bottom: 7px;
+	text-overflow: inherit;
+	white-space: normal;
 	.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before{
 		border-color: rgb(255, 236, 214);
 		background: #D07000;
+	}
+}
+
+.settingsButton{
+	background-color: #FF5031;
+	color: #fff;
+	border-radius: 30px;
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 10px;
+	border: 3px solid #FFFFFF;
+	font-size: 20px;
+	font-weight: 400;
+	&.activated{
+		background-color: #a01800;
+		border: 3px solid #ff9e9e;
 	}
 }
 
@@ -215,6 +234,10 @@ ion-nav-view ion-view ion-content{
 	border-radius: 20px;
 	font-weight: 300;
 	text-align: center;
+	&.open{
+		background-color: #0A8E11;
+		border: 3px solid #00FD0D;
+	}
 	.className{
 		font-weight: 500;
 		width: 100%;

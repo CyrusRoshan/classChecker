@@ -60,7 +60,7 @@
 				<ion-content class="padding" ng-controller="classesCtrl">
 					<ion-refresher pulling-text="Manual Refresh" on-refresh="$root.doRefresh()" spinner="lines" pulling-icon="ion-chevron-down">
 					</ion-refresher>
-					<div ng-repeat="class in $root.classList" class="classStorage">
+					<div ng-repeat="class in $root.classList" class="classStorage" ng-class="class.open">
 						<div class="className">
 							{{class.name}}
 						</div>
@@ -145,12 +145,15 @@
 						<label class="checkbox">
 							<input type="checkbox"  ng-model="pushNotifications">
 						</label>
-						Push Notifications
+						Update classes in background?<br>(Drains battery faster)
 					</li>
 					<label class="item item-input settingsInput item-stacked-label">
-						<span class="input-label">Update Interval in Hours</span>
-						<input type="number" placeholder="e.g. 0 (never) OR 1/60 OR 24"  ng-model="updateInterval">
+						<span class="input-label">Background update frequency (hours)</span>
+						<input type="number" min="0" max="100" placeholder="e.g. 0 (never) OR 1/60 OR 24"  ng-model="updateInterval">
 					</label>
+					<button class="button settingsButton"  ng-click="$root.clearClasses()">
+						Clear all class data
+					</button>
 				</ion-content>
 			</ion-view>
 		</script>

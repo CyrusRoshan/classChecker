@@ -1,7 +1,7 @@
 
 
 //the addClass modal's angular code:
-app.controller('addClassController', function($scope, $timeout, $rootScope, $localstorage) {
+app.controller('addClassController', function($scope, $timeout, $rootScope, $localstorage, $ionicPopup) {
 	if(ionic.Platform.isIOS()){
 		//are you serious ios, do you think you're special?
 
@@ -122,5 +122,20 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 			//console.log($localstorage.getObject('classList'));
 		});
 
+	}
+
+	$rootScope.clearClasses = function() {
+		console.log("ASDFASSDFASD");
+		var confirmDelete = $ionicPopup.confirm({
+			title: 'Delete ALL Classes?',
+			template: 'Are you sure you want to delete all classes? This is irreversible.'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				$localstorage.setObject('classList', {});
+			} else {
+
+			}
+		});
 	}
 });
