@@ -129,7 +129,7 @@ app.controller('addClassController', function($scope, $timeout, $rootScope, $loc
 	}
 });
 
-app.controller('masterController', function($timeout, $rootScope, $localstorage, $ionicPopup) {
+app.controller('masterController', function($scope, $timeout, $rootScope, $localstorage, $ionicPopup) {
 	//kind of redundant, yeah.
 
 	$rootScope.clearClasses = function() {
@@ -172,7 +172,14 @@ app.controller('masterController', function($timeout, $rootScope, $localstorage,
 
 	$rootScope.deleteThisClass = function($index){
 		$rootScope.classList.splice($index, 1);
+		if($rootScope.classList.length == 0){
+			$rootScope.classList =
+				[
+				{name: "Example Class", section: "Section", number: "Number", schedule: "Scheduled Times", term: "Term", seats: "Percent Filled", lastUpdate: "Never"}
+			];
+		}
 		$localstorage.setObject('classList', $rootScope.classList);
 	}
+
 
 });

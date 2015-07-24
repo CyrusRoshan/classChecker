@@ -42,8 +42,8 @@
 					<ion-nav-view name="home-tab"></ion-nav-view>
 				</ion-tab>
 
-				<ion-tab title="Settings" icon="ion-gear-b" href="#/tab/about">
-					<ion-nav-view name="about-tab"></ion-nav-view>
+				<ion-tab title="Settings" icon="ion-gear-b" href="#/tab/settings">
+					<ion-nav-view name="settings-tab"></ion-nav-view>
 				</ion-tab>
 
 				<ion-tab title="Contact" icon="ion-email" ui-sref="tabs.contact">
@@ -89,11 +89,6 @@
 						<div class="listRow">
 							<div class="classTerm">
 								Term: {{class.term}}
-							</div>
-						</div>
-						<div class="listRow">
-							<div class="classError">
-								Error: {{class.classError}}
 							</div>
 						</div>
 						<div class="listRow">
@@ -152,18 +147,18 @@
 			</ion-modal-view>
 		</script>
 
-		<script id="templates/about.html" type="text/ng-template">
+		<script id="templates/settings.html" type="text/ng-template">
 			<ion-view view-title="Settings">
 				<ion-content class="padding">
 					<li class="item settingsCheckbox item-checkbox">
 						<label class="checkbox">
-							<input type="checkbox"  ng-model="pushNotifications">
+							<input type="checkbox"  ng-model="$root.settings.push">
 						</label>
 						Update classes in background?<br>(Drains battery faster)
 					</li>
 					<label class="item item-input settingsInput item-stacked-label">
 						<span class="input-label">Background update frequency (hours)</span>
-						<input type="number" min="0" max="100" placeholder="e.g. 0 (never) OR 1/60 OR 24"  ng-model="updateInterval">
+						<input type="number" min="0" max="100" placeholder="e.g. 0 (never) OR 1/60 OR 24"  ng-model="$root.settings.updateInterval">
 					</label>
 					<button class="button settingsButton"  ng-click="$root.clearClasses()">
 						Clear all class data

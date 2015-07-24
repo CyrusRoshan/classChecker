@@ -18,11 +18,11 @@ var utilities = angular.module('ionic.utils', [])
 			}
 		}
 	})
-		.state('tabs.about', {
-		url: "/about",
+		.state('tabs.settings', {
+		url: "/settings",
 		views: {
-			'about-tab': {
-				templateUrl: "templates/about.html"
+			'settings-tab': {
+				templateUrl: "templates/settings.html"
 			}
 		}
 	})
