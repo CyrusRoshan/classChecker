@@ -181,5 +181,4 @@ app.controller('masterController', function($scope, $timeout, $rootScope, $local
 		$localstorage.setObject('classList', $rootScope.classList);
 	}
 
-
 });

@@ -105,10 +105,7 @@ app.controller('classesCtrl', function($scope, $timeout, $rootScope, $localstora
 
 	$scope.tempClassList = $localstorage.getObject('classList');
 	if($scope.tempClassList.length > 0){
-		$rootScope.classList = $scope.tempClassList;
-		for(i=1;i<=$scope.tempClassList;i++){
-
-		}
+		$rootScope.classList = $localstorage.getObject('classList');
 	}
 	else{
 		$rootScope.classList =
