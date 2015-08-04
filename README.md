@@ -8,12 +8,12 @@ Uses whateverorigin.org to aid in page scraping (in order to bypass same-origin 
 ___
 Example:
 
-<img src="examplePics/demo1.png">
-<img src="examplePics/demo2.png">
-<img src="examplePics/demo3.png">
-<img src="examplePics/demo4.png">
-<img src="examplePics/demo5.png">
-<img src="examplePics/demo6.png">
+<img src="examplePics/demo1.png" width=200>
+<img src="examplePics/demo2.png" width=200>
+<img src="examplePics/demo3.png" width=200>
+<img src="examplePics/demo4.png" width=200>
+<img src="examplePics/demo5.png" width=200>
+<img src="examplePics/demo6.png" width=200>
 
 ___
 #License: MIT
