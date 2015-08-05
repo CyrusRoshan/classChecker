@@ -5,6 +5,7 @@ Made summer 2015 as a project to gain familarity with ionic and AngularJS.
 
 Uses whateverorigin.org to aid in page scraping (in order to bypass same-origin policy imposed on client side javascript).
 
+Available on the <a href="https://play.google.com/store/apps/details?id=com.ionicframework.classchecker849469">Google Play Store</a>.
 ___
 Example:
 
